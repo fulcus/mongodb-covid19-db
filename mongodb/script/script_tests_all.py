@@ -70,15 +70,22 @@ def main():
 
     # Add persons, tests and vaccines to each certificate
     certificates = []
+    tests_all = []
 
     for person in persons:
         certificate = {}
+        test_obj = {}
         certificate['person'] = person
+        test_obj['person'] = person
 
         # this should actually be saved in different collection
         random_tests = random.sample(tests, random.randint(0, min(10, len(tests))))
 
-        certificate['tests'] = random_tests
+        test_obj['tests'] = random_tests
+        if len(random_tests) > 0:
+            certificate['latest_test'] = max(random_tests, key=lambda x: x['date'])
+        
+        # print(f"random_tests dates: {[d['date'] for d in random_tests]}, most recent test: {max(random_tests, key=lambda x: x['date'])['date']}")
         for test in random_tests:
             tests.remove(test)
         
@@ -89,16 +96,16 @@ def main():
             vaccines.remove(vaccine)
         
         certificates.append(certificate)
+        tests_all.append(test_obj)
     
 
     certificates_json = {
         "certificates": certificates,
-
-        #"tests_all": tests_all,
+        "tests_all": tests_all,
     }
 
     # Save the JSON file
-    with open(cwd + '/data/certificates.json', 'w') as f:
+    with open(cwd + '/data/certificates_tests_all.json', 'w') as f:
         json.dump(certificates_json, f)
 
 
