@@ -1,0 +1,82 @@
+[
+  {
+    "center_id": 1,
+    "center_name": "Gusikowski and Sons",
+    "center_address": "43175 Eastlawn Park",
+    "center_latitude": 50.52546,
+    "center_longitude": 42.6645851,
+    "center_type": "Vaccination Hub"
+  },
+  {
+    "center_id": 2,
+    "center_name": "Rolfson, Mayert and Gottlieb",
+    "center_address": "798 Manley Place",
+    "center_latitude": 54.4658152,
+    "center_longitude": 19.9348453,
+    "center_type": "Vaccination Hub"
+  },
+  {
+    "center_id": 3,
+    "center_name": "Bode Group",
+    "center_address": "687 Vera Way",
+    "center_latitude": 38.0120968,
+    "center_longitude": 23.7725723,
+    "center_type": "Pharmacy"
+  },
+  {
+    "center_id": 4,
+    "center_name": "Gorczany, Beahan and VonRueden",
+    "center_address": "9747 Kipling Place",
+    "center_latitude": -8.4114856,
+    "center_longitude": 116.1713917,
+    "center_type": "Pharmacy"
+  },
+  {
+    "center_id": 5,
+    "center_name": "Kerluke-Wehner",
+    "center_address": "2 Grayhawk Parkway",
+    "center_latitude": 34.9255083,
+    "center_longitude": 64.1478236,
+    "center_type": "Pharmacy"
+  },
+  {
+    "center_id": 6,
+    "center_name": "Prosacco, Goyette and Hickle",
+    "center_address": "19 Beilfuss Center",
+    "center_latitude": -23.4500163,
+    "center_longitude": -51.70451,
+    "center_type": "Hospital"
+  },
+  {
+    "center_id": 7,
+    "center_name": "D'Amore-Veum",
+    "center_address": "463 Shasta Lane",
+    "center_latitude": 35.2897617,
+    "center_longitude": 137.1605839,
+    "center_type": "Vaccination Hub"
+  },
+  {
+    "center_id": 8,
+    "center_name": "Block Group",
+    "center_address": "93354 Starling Parkway",
+    "center_latitude": 51.1134675,
+    "center_longitude": 28.0490173,
+    "center_type": "Vaccination Hub"
+  },
+  {
+    "center_id": 9,
+    "center_name": "Klocko, Heidenreich and Crooks",
+    "center_address": "0720 Maryland Center",
+    "center_latitude": 49.7762204,
+    "center_longitude": 22.6525426,
+    "center_type": "Pharmacy"
+  },
+  {
+    "center_id": 10,
+    "center_name": "Conn, Gottlieb and Emmerich",
+    "center_address": "08 Florence Crossing",
+    "center_latitude": 12.1235658,
+    "center_longitude": 37.7795618,
+    "center_type": "Pharmacy"
+  }
+]
