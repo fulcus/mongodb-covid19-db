@@ -30,16 +30,16 @@ def main():
 
     # Load the JSON files
     cwd = os.getcwd() + '/mongodb'
-    with open(cwd + '/data/persons.json') as f:
+    with open(cwd + '/data/people.json') as f:
         persons = json.load(f)
 
     with open(cwd + '/data/covid-centers.json') as f:
         covid_centers = json.load(f)
 
-    with open(cwd + '/data/tests.json') as f:
+    with open(cwd + '/data/testWithDateTime.json') as f:
         tests = json.load(f)
 
-    with open(cwd + '/data/vaccines.json') as f:
+    with open(cwd + '/data/vaccineWithDateTime.json') as f:
         vaccines = json.load(f)
 
     # Add emergency contact to each person
@@ -98,7 +98,7 @@ def main():
     }
 
     # Save the JSON file
-    with open(cwd + '/data/certificates.json', 'w') as f:
+    with open(cwd + '/data/certificates_dateTime.json', 'w') as f:
         json.dump(certificates_json, f)
 
 
