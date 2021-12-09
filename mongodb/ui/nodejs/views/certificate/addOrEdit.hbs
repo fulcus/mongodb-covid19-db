@@ -1,27 +1,40 @@
 <h3>{{viewTitle}}</h3>
 
-<form action='/certificate' method="POST" autocomplete="off">
-    <input type="hidden" name="_id" value="{{certificate._id}}">
+<form action="/certificate" method="POST" autocomplete="off">
+    <input type="hidden" name="_id" value="{{certificate._id}}" />
 
     <div class="form-group">
         <div id="title">- Person</div>
-        <input type="hidden" name="id" value="{{certificate.person.id}}">
+        <input type="hidden" name="id" value="{{certificate.person.id}}" />
 
         <div id="body">First Name</div>
-        <input type="text" id="input" name="person" placeholder="First Name" value="{{certificate.person.first_name}}">
-        <br><div id="body">Last Name</div>
-        <input type="text" id="input" name="person" placeholder="Last Name" value="{{certificate.person.last_name}}">
-        <br><div id="body">Email</div>
-        <input type="text" id="input" name="person" placeholder="Email" value="{{certificate.person.email}}">
-        <br><div id="body">Phone Number</div>
-        <input type="text" id="input" name="person" placeholder="Phone Number" value="{{certificate.person.phone_number}}">
-        <br><div id="body">CF</div>
-        <input type="text" id="input" name="person" placeholder="CF" value="{{certificate.person.CF}}">
-        <br><div id="body">Is it a doctor?</div>
-        <input type="text" id="input" name="person" placeholder="true/false" value="{{certificate.person.is_doctor}}">
+        <input type="text" class="input" name="first_name" placeholder="First Name"
+            value="{{certificate.person.first_name}}" />
+        <br />
+        <div id="body">Last Name</div>
+        <input type="text" class="input" name="last_name" placeholder="Last Name"
+            value="{{certificate.person.last_name}}" />
+        <br />
+        <div id="body">Email</div>
+        <input type="text" class="input" name="email" placeholder="Email" value="{{certificate.person.email}}" />
+        <br />
+        <div id="body">Phone Number</div>
+        <input type="text" class="input" name="phone_number" placeholder="Phone Number"
+            value="{{certificate.person.phone_number}}" />
+        <br />
+        <div id="body">CF</div>
+        <input type="text" class="input" name="CF" placeholder="CF" value="{{certificate.person.CF}}" />
+        <br />
+        {{!-- <div id="body">Is it a doctor?</div> --}}
+        {{!-- <input type="text" id="input" name="is_doctor" placeholder="true/false"
+            value="{{certificate.person.is_doctor}}"> --}}
+        <input type="checkbox" value="true" name="is_doctor">
+        <label>
+            it's a doctor
+        </label>
     </div>
 
-<!--
+    <!--
     <div class="form-group">
         <div id="title">- Tests</div>
 
@@ -63,17 +76,20 @@
 </form>
 
 <style>
-    #title {
+    /*#title {
         font-size: 18px;
         font-weight: bold;
-    }
-    #body {
+    }*/
+
+    body {
         font-size: 12px;
     }
-    #input {
+
+    .input {
         font-size: 10px;
         width: 200px;
     }
+
     #tests_num {
         font-size: 12px;
     }

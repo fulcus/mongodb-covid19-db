@@ -6,10 +6,12 @@ const Certificate = mongoose.model("Certificate");
 router.get("/", (req, res) => {
   res.render("certificate/addOrEdit", {
     viewTitle: "Insert Certificate",
+
   });
 });
 
 router.post("/", (req, res) => {
+  console.log('req.body: ' + JSON.stringify(req.body));
   if (req.body._id == "") {
     insertRecord(req, res);
   } else {
@@ -18,13 +20,25 @@ router.post("/", (req, res) => {
 });
 
 function insertRecord(req, res) {
-  var certificate = new Certificate();
-  certificate.person.id = req.body.person.id;
-  certificate.person.first_name = req.body.person.first_name;
-  certificate.person.last_name = req.body.person.last_name;
-  certificate.person.email = req.body.person.email;
-  certificate.person.CF = req.body.person.CF;
-  certificate.person.is_doctor = req.body.person.is_doctor;
+  var certificate = new Certificate({
+  person: {
+    //id: ,
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.email,
+    phone_number: req.body.phone_number,
+    CF: req.body.CF,
+    is_doctor: req.body.is_doctor === "true" ? true : false,
+  }});
+  //certificate.person.id = req.body.person.id;
+  // certificate.person.first_name = req.body.first_name;
+  // certificate.person.last_name = req.body.last_name;
+  // certificate.person.email = req.body.email;
+  // certificate.person.phone_number = req.body.phone_number;
+  // certificate.person.CF = req.body.CF;
+  // certificate.person.is_doctor = req.body.is_doctor === "true" ? true : false;
+
+  console.log('certificate: ' + JSON.stringify(certificate));
 
   certificate.save((err, doc) => {
     if (!err) {
@@ -74,10 +88,10 @@ router.get("/:id", (req, res) => {
   });
 });
 
-router.get("delete/:id", (req, res) => {
+router.get("/delete/:id", (req, res) => {  
   Certificate.findByIdAndRemove(req.params.id, (err, doc) => {
     if (!err) {
-      res.redirect("certificate/list");
+      res.redirect("/certificate/list");
     } else {
       console.log("Error in deletion: " + err);
     }
