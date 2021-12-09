@@ -19,9 +19,13 @@ router.post("/", (req, res) => {
 
 function insertRecord(req, res) {
   var certificate = new Certificate();
-  certificate.person = req.body.person;
-  certificate.tests = req.body.test;
-  certificate.vaccines = req.body.vaccines;
+  certificate.person.id = req.body.person.id;
+  certificate.person.first_name = req.body.person.first_name;
+  certificate.person.last_name = req.body.person.last_name;
+  certificate.person.email = req.body.person.email;
+  certificate.person.CF = req.body.person.CF;
+  certificate.person.is_doctor = req.body.person.is_doctor;
+
   certificate.save((err, doc) => {
     if (!err) {
       res.redirect("certificate/list");

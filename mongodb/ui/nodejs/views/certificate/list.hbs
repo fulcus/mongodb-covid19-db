@@ -1,4 +1,5 @@
-<h3><a class="btn btn-secondary" href="/certificate">Create New</a>Certificate List</h3>
+<h3><a class="btn btn-secondary" href="/certificate">Create New</a> Certificate List </h3>
+
 <table class="table table-striped">
     <thread>
         <tr>
@@ -10,7 +11,11 @@
     <tbody>
         {{#each list}}
         <tr>
-            <td>{{this.person.first_name}}</td>
+            <td>First Name: {{this.person.first_name}}<br>
+                Last Name: {{this.person.last_name}}<br>
+                Email: {{this.person.email}}<br>
+                Phone Number: {{this.person.phone_number}}<br>
+                CF: {{this.person.CF}}</td>
             <td>{{this.tests}}</td>
             <td>{{this.vaccines}}</td>
             <td>
@@ -22,3 +27,5 @@
         {{/each}}
     </tbody>
 </table>
+
+#title

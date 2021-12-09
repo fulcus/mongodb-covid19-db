@@ -2,20 +2,79 @@
 
 <form action='/certificate' method="POST" autocomplete="off">
     <input type="hidden" name="_id" value="{{certificate._id}}">
+
     <div class="form-group">
-        <label>Person</label>
-        <input type="text" class="form-control" name="person" placeholder="Person" value="{{certificate.person}}">
+        <div id="title">- Person</div>
+        <input type="hidden" name="id" value="{{certificate.person.id}}">
+
+        <div id="body">First Name</div>
+        <input type="text" id="input" name="person" placeholder="First Name" value="{{certificate.person.first_name}}">
+        <br><div id="body">Last Name</div>
+        <input type="text" id="input" name="person" placeholder="Last Name" value="{{certificate.person.last_name}}">
+        <br><div id="body">Email</div>
+        <input type="text" id="input" name="person" placeholder="Email" value="{{certificate.person.email}}">
+        <br><div id="body">Phone Number</div>
+        <input type="text" id="input" name="person" placeholder="Phone Number" value="{{certificate.person.phone_number}}">
+        <br><div id="body">CF</div>
+        <input type="text" id="input" name="person" placeholder="CF" value="{{certificate.person.CF}}">
+        <br><div id="body">Is it a doctor?</div>
+        <input type="text" id="input" name="person" placeholder="true/false" value="{{certificate.person.is_doctor}}">
     </div>
+
+<!--
     <div class="form-group">
-        <label>Tests</label>
-        <input type="text" class="form-control" name="tests" placeholder="Tests" value="{{certificate.tests}}">
+        <div id="title">- Tests</div>
+
+        <div id="body">How many tests do you want to add?</div>
+        <select id="tests_num" onchange="showTests()">
+            <option value="1">10</option>
+            <option value="2">9</option>
+            <option value="3">8</option>
+            <option value="4">7</option>
+            <option value="5">6</option>
+            <option value="6">5</option>
+            <option value="7">4</option>
+            <option value="8">3</option>
+            <option value="9">2</option>
+            <option value="10">1</option>
+            <option value='default' selected>0</option>
+        </select>
+
+        <span id="tests">
+            <input type="hidden" name="id" value="{{certificate.tests.0.id}}">
+            <div id="body">Outcome</div>
+            <input type="text" id="input" name="test" placeholder="True/False" value="{{certificate.tests.0.outcome}}">
+            <br><div id="body">Date</div>
+            <input type="text" id="input" name="test" placeholder="Date" value="{{certificate.tests.0.date}}">
+        </span>
     </div>
+
+
+
     <div class="form-group">
-        <label>Vaccines</label>
-        <input type="text" class="form-control" name="vaccines" placeholder="Vaccines" value="{{certificate.vaccines}}">
-    </div>
+        <div id="title">- Vaccines</div>
+        <input type="text" id="input" name="vaccine" placeholder="First Name" value="{{certificate.vaccines}}">
+    </div>-->
+
     <div class="form-group">
         <button type="submit" class="btn btn-info">Submit</button>
         <a class="btn btn-secondsry" href="/certificate/list">View All</a>
     </div>
 </form>
+
+<style>
+    #title {
+        font-size: 18px;
+        font-weight: bold;
+    }
+    #body {
+        font-size: 12px;
+    }
+    #input {
+        font-size: 10px;
+        width: 200px;
+    }
+    #tests_num {
+        font-size: 12px;
+    }
+</style>
