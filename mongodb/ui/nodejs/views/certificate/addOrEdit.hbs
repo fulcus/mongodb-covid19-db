@@ -25,13 +25,14 @@
         <div id="body">CF</div>
         <input type="text" class="input" name="CF" placeholder="CF" value="{{certificate.person.CF}}" />
         <br />
-        {{!-- <div id="body">Is it a doctor?</div> --}}
-        {{!-- <input type="text" id="input" name="is_doctor" placeholder="true/false"
-            value="{{certificate.person.is_doctor}}"> --}}
-        <input type="checkbox" value="true" name="is_doctor">
-        <label>
-            it's a doctor
-        </label>
+        <div id="doctor">
+            {{#if certificate.person.is_doctor}}
+            <input checked type="checkbox" value="true" name="is_doctor">
+            {{else}}
+            <input type="checkbox" value="true" name="is_doctor">
+            {{/if}}
+            <label>it's a doctor</label>
+        </div>
     </div>
 
     <!--
@@ -92,5 +93,9 @@
 
     #tests_num {
         font-size: 12px;
+    }
+
+    #doctor {
+        padding-top: 5px;
     }
 </style>

@@ -1,11 +1,14 @@
-<h3><a class="btn btn-secondary" href="/certificate">Create New</a> Certificate List </h3>
-
+<div class="header-row">
+    <h3>Certificates</h3>
+    <a class="btn btn-primary" href="/certificate">Create New</a>
+</div>
 <table class="table table-striped">
     <thread>
         <tr>
             <th>Person</th>
             <th>Tests</th>
             <th>Vaccines</th>
+            <th>Actions</th>
         </tr>
     </thread>
     <tbody>
@@ -15,17 +18,33 @@
                 Last Name: {{this.person.last_name}}<br>
                 Email: {{this.person.email}}<br>
                 Phone Number: {{this.person.phone_number}}<br>
-                CF: {{this.person.CF}}</td>
-            <td>{{this.tests}}</td>
-            <td>{{this.vaccines}}</td>
+                CF: {{this.person.CF}}<br>
+                is a doctor: {{this.person.is_doctor}}</td>
+            <td><a class="actions btn btn-secondary btn-sm" href="/tests/{{this.id}}">Tests</a></td>
+            <td><a class="actions btn btn-secondary btn-sm" href="/vaccines/{{this.id}}">Vaccines</a></td>
             <td>
-                <a class="btn btn-primary btn-sm" href="/certificate/{{this.id}}">Edit</a>
-                <a class="btn btn-primary btn-sm" href="/certificate/delete/{{this.id}}"
-                    onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
+                <div class="actions">
+                    <a class="btn btn-primary btn-sm mr-2" href="/certificate/{{this.id}}">Edit</a>
+                    <a class="btn btn-primary btn-sm" href="/certificate/delete/{{this.id}}"
+                        onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
+                </div>
             </td>
         </tr>
         {{/each}}
     </tbody>
 </table>
 
-#title
+<style>
+    /*display header row elements in same row to opposite sides*/
+    .header-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
+    }
+</style>

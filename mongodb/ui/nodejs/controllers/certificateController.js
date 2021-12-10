@@ -11,7 +11,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  console.log('req.body: ' + JSON.stringify(req.body));
   if (req.body._id == "") {
     insertRecord(req, res);
   } else {
@@ -20,9 +19,11 @@ router.post("/", (req, res) => {
 });
 
 function insertRecord(req, res) {
+  console.log("req.body: " + JSON.stringify(req.body));
+
   var certificate = new Certificate({
   person: {
-    //id: ,
+    //id: assigned by mongo
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     email: req.body.email,
@@ -30,13 +31,6 @@ function insertRecord(req, res) {
     CF: req.body.CF,
     is_doctor: req.body.is_doctor === "true" ? true : false,
   }});
-  //certificate.person.id = req.body.person.id;
-  // certificate.person.first_name = req.body.first_name;
-  // certificate.person.last_name = req.body.last_name;
-  // certificate.person.email = req.body.email;
-  // certificate.person.phone_number = req.body.phone_number;
-  // certificate.person.CF = req.body.CF;
-  // certificate.person.is_doctor = req.body.is_doctor === "true" ? true : false;
 
   console.log('certificate: ' + JSON.stringify(certificate));
 
@@ -50,6 +44,7 @@ function insertRecord(req, res) {
 }
 
 function updateRecord(req, res) {
+  console.log('update record: ' + JSON.stringify(req.body));
   Certificate.findOneAndUpdate(
     { _id: req.body._id },
     req.body,
