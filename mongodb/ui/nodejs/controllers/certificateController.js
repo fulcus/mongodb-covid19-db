@@ -6,7 +6,6 @@ const Certificate = mongoose.model("Certificate");
 router.get("/", (req, res) => {
   res.render("certificate/addOrEdit", {
     viewTitle: "Insert Certificate",
-
   });
 });
 
@@ -22,17 +21,24 @@ function insertRecord(req, res) {
   console.log("req.body: " + JSON.stringify(req.body));
 
   var certificate = new Certificate({
-  person: {
-    //id: assigned by mongo
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    email: req.body.email,
-    phone_number: req.body.phone_number,
-    CF: req.body.CF,
-    is_doctor: req.body.is_doctor === "true" ? true : false,
-  }});
+    person: {
+      //_id: assigned by mongo
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      email: req.body.email,
+      phone_number: req.body.phone_number,
+      CF: req.body.CF,
+      is_doctor: req.body.is_doctor === "true" ? true : false,
+      emergency_contact: {
+        first_name: req.body.emergency_first_name,
+        last_name: req.body.emergency_last_name,
+        email: req.body.emergency_email,
+        phone_number: req.body.emergency_phone_number,
+      },
+    },
+  });
 
-  console.log('certificate: ' + JSON.stringify(certificate));
+  console.log("certificate: " + JSON.stringify(certificate));
 
   certificate.save((err, doc) => {
     if (!err) {
@@ -44,8 +50,7 @@ function insertRecord(req, res) {
 }
 
 function updatePerson(req, res) {
-
-  console.log('update record: ' + JSON.stringify(req.body));
+  console.log("update record: " + JSON.stringify(req.body));
 
   var updated_person = {
     first_name: req.body.first_name,
@@ -54,7 +59,13 @@ function updatePerson(req, res) {
     phone_number: req.body.phone_number,
     CF: req.body.CF,
     is_doctor: req.body.is_doctor === "true" ? true : false,
-  }
+    emergency_contact: {
+      first_name: req.body.emergency_first_name,
+      last_name: req.body.emergency_last_name,
+      email: req.body.emergency_email,
+      phone_number: req.body.emergency_phone_number,
+    },
+  };
 
   Certificate.findOneAndUpdate(
     { _id: req.body._id },
@@ -96,7 +107,7 @@ router.get("/:id", (req, res) => {
   });
 });
 
-router.get("/delete/:id", (req, res) => {  
+router.get("/delete/:id", (req, res) => {
   Certificate.findByIdAndRemove(req.params.id, (err, doc) => {
     if (!err) {
       res.redirect("/certificate/list");

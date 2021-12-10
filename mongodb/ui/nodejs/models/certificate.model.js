@@ -29,7 +29,7 @@ const shortPersonSchema = new mongoose.Schema({
 var certificateSchema = new mongoose.Schema(
   {
     person: {
-      id: Number,
+      id: Number, // todo remove, but also from tests and vaccines
       first_name: String,
       last_name: String,
       email: String,
@@ -57,7 +57,7 @@ var certificateSchema = new mongoose.Schema(
       },
     ],
   },
-  { collection: "newCertificate" }
+  { collection: "certificates" }
 );
 
 mongoose.model("Certificate", certificateSchema);
