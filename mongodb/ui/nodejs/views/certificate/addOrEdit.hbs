@@ -1,3 +1,22 @@
+<style>
+    body {
+        font-size: 12px;
+    }
+
+    .input {
+        font-size: 10px;
+        width: 200px;
+    }
+
+    #tests_num {
+        font-size: 12px;
+    }
+
+    #doctor {
+        padding-top: 5px;
+    }
+</style>
+
 <h3>{{viewTitle}}</h3>
 
 <form action="/certificate" method="POST" autocomplete="off">
@@ -26,10 +45,11 @@
         <input type="text" class="input" name="CF" placeholder="CF" value="{{certificate.person.CF}}" />
         <br />
         <div id="doctor">
+            {{!-- for update: if person is doctor it appears already checked --}}
             {{#if certificate.person.is_doctor}}
             <input checked type="checkbox" value="true" name="is_doctor">
             {{else}}
-            <input type="checkbox" value="true" name="is_doctor">
+            <input type="checkbox" value="true" name="is_doctor" id="is_doctor_unchecked">
             {{/if}}
             <label>it's a doctor</label>
         </div>
@@ -76,26 +96,3 @@
     </div>
 </form>
 
-<style>
-    /*#title {
-        font-size: 18px;
-        font-weight: bold;
-    }*/
-
-    body {
-        font-size: 12px;
-    }
-
-    .input {
-        font-size: 10px;
-        width: 200px;
-    }
-
-    #tests_num {
-        font-size: 12px;
-    }
-
-    #doctor {
-        padding-top: 5px;
-    }
-</style>

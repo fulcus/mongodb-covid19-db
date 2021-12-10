@@ -14,7 +14,7 @@ router.post("/", (req, res) => {
   if (req.body._id == "") {
     insertRecord(req, res);
   } else {
-    updateRecord(req, res);
+    updatePerson(req, res);
   }
 });
 
@@ -43,11 +43,24 @@ function insertRecord(req, res) {
   });
 }
 
-function updateRecord(req, res) {
+function updatePerson(req, res) {
+
   console.log('update record: ' + JSON.stringify(req.body));
+
+  var updated_person = {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.email,
+    phone_number: req.body.phone_number,
+    CF: req.body.CF,
+    is_doctor: req.body.is_doctor === "true" ? true : false,
+  }
+
   Certificate.findOneAndUpdate(
     { _id: req.body._id },
-    req.body,
+    {
+      person: updated_person,
+    },
     { new: true },
     (err, doc) => {
       if (!err) {
