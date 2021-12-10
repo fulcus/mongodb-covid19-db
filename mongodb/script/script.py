@@ -36,10 +36,10 @@ def main():
     with open(cwd + '/data/covid-centers.json') as f:
         covid_centers = json.load(f)
 
-    with open(cwd + '/data/testWithDateTime.json') as f:
+    with open(cwd + '/data/tests.json') as f:
         tests = json.load(f)
 
-    with open(cwd + '/data/vaccineWithDateTime.json') as f:
+    with open(cwd + '/data/vaccines.json') as f:
         vaccines = json.load(f)
 
     # Add emergency contact to each person
@@ -91,15 +91,9 @@ def main():
         certificates.append(certificate)
     
 
-    certificates_json = {
-        "certificates": certificates,
-
-        #"tests_all": tests_all,
-    }
-
-    # Save the JSON file
-    with open(cwd + '/data/certificates_dateTime.json', 'w') as f:
-        json.dump(certificates_json, f)
+    # Save the JSON file, can import as collection from compass
+    with open(cwd + '/data/certificates.json', 'w') as f:
+        json.dump(certificates, f)
 
 
 if __name__ == '__main__':
