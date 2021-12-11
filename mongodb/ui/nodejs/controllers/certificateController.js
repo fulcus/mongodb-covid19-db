@@ -66,6 +66,7 @@ function updatePerson(req, res) {
       phone_number: req.body.emergency_phone_number,
     },
   };
+  
 
   Certificate.findOneAndUpdate(
     { _id: req.body._id },
@@ -83,6 +84,9 @@ function updatePerson(req, res) {
   );
 }
 
+
+
+/////////////////////////// LISTS
 router.get("/list", (req, res) => {
   Certificate.find((err, docs) => {
     if (!err) {
@@ -95,6 +99,33 @@ router.get("/list", (req, res) => {
   });
 });
 
+
+router.get("/tests/:id", (req, res) => {
+  Certificate.findById(req.params.id, (err, docs) => {
+    if (!err) {
+      res.render("certificate/tests", {
+        tests: docs,
+      });
+    } else {
+      console.log("Error in retrieval: " + err);
+    }
+  });
+});
+
+router.get("/vaccines/:id", (req, res) => {
+  Certificate.findById(req.params.id, (err, docs) => {
+    if (!err) {
+      res.render("certificate/vaccines", {
+        vaccines: docs,
+      });
+    } else {
+      console.log("Error in retrieval: " + err);
+    }
+  });
+});
+/////////////////////////////////////
+
+//////////////////////// ADD OR EDIT
 router.get("/:id", (req, res) => {
   Certificate.findById(req.params.id, (err, doc) => {
     if (!err) {
@@ -107,14 +138,70 @@ router.get("/:id", (req, res) => {
   });
 });
 
+router.get("/testsAddOrEdit/:id", (req, res) => {
+  Certificate.findById(req.params.id, (err, doc) => {
+    if (!err) {
+      res.render("certificate/testsAddOrEdit", {
+        viewTitle: "Add Test",
+        testsAddOrEdit: doc,
+      });
+    }else {
+        console.log("Error in deletion: " + err);
+    }
+  });
+});
+
+router.get("/vaccinesAddOrEdit/:id", (req, res) => {
+  Certificate.findById(req.params.id, (err, doc) => {
+    if (!err) {
+      res.render("certificate/vaccinesAddOrEdit", {
+        viewTitle: "Add Vaccine",
+        vaccinesAddOrEdit: doc,
+      });
+    }else {
+        console.log("Error in deletion: " + err);
+    }
+  });
+});
+////////////////////////////////
+
+
+////////////////////////////// DELETE
 router.get("/delete/:id", (req, res) => {
   Certificate.findByIdAndRemove(req.params.id, (err, doc) => {
     if (!err) {
-      res.redirect("/certificate/list");
+      res.redirect("certificate/list");
     } else {
       console.log("Error in deletion: " + err);
     }
   });
 });
+
+/*
+//DELETE TESTS: da aggiustare
+
+router.get("/tests/delete/:id", (req, res) => {
+  Certificate.updateOne( {cn: req.params.name}, { $pullAll: {uid: [req.params.deleteUid] } }, (err, doc) => {
+    if (!err) {
+      res.redirect("/certificate/tests");
+    } else {
+      console.log("Error in deletion: " + err);
+    }
+  });
+});*/
+
+/*
+//DELETE VACCINES: da aggiustare
+
+router.get("/vaccines/delete/:id", (req, res) => {
+  Certificate.updateOne( {cn: req.params.name}, { $pullAll: {uid: [req.params.deleteUid] } }, (err, doc) => {
+    if (!err) {
+      res.redirect("/certificate/vaccines");
+    } else {
+      console.log("Error in deletion: " + err);
+    }
+  });
+});*/
+///////////////////////////
 
 module.exports = router;

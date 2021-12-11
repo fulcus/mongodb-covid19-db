@@ -1,0 +1,55 @@
+<style>
+    /*display header row elements in same row to opposite sides*/
+    .header-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
+    }
+</style>
+
+<div class="header-row">
+    <h3>Vaccines</h3>
+    <a class="btn btn-primary" href="/certificate/vaccinesAddOrEdit">Create New</a>
+</div>
+<table class="table table-striped">
+    <thread>
+        <tr>
+            <th>Vaccine #</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Covid Center</th>
+            <th>Health Worker</th>
+            <th>Actions</th>
+        </tr>
+    </thread>
+    <tbody>
+        {{#each vaccines.vaccines}}
+        <tr>
+            <td>{{@index}}</td>
+            <td>{{this.type}}</td>
+            <td>{{this.date}}</td>
+            <td>Name: {{this.covid_center.name}}<br>
+            Address: {{this.covid_center.address}}<br>
+            Type: {{this.covid_center.type}}<br></td>
+            <td>First Name: {{this.health_worker.first_name}}<br>
+            Last Name: {{this.health_worker.last_name}}<br>
+            Phone Number: {{this.health_worker.phone_number}}<br>
+            Email: {{this.health_worker.email}}</td>
+            <td>
+                <div class="actions">
+                    <a class="btn btn-primary btn-sm mr-2" href="/certificate/vaccinesAddOrEdit/{{this.id}}">Edit</a>
+                    <a class="btn btn-primary btn-sm" href="/certificate/vaccines/delete/{{this.id}}"
+                        onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
+                </div>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
