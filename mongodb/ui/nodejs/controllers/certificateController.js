@@ -12,17 +12,17 @@ router.get("/", (req, res) => {
   });
 });
 
-// Add certificate post
+// POST: Add or edit certificate
 router.post("/", (req, res) => {
   if (req.body._id == "") {
-    insertRecord(req, res);
+    insertPerson(req, res);
   } else {
     updatePerson(req, res);
   }
 });
 
-function insertRecord(req, res) {
-  console.log("req.body: " + JSON.stringify(req.body));
+function insertPerson(req, res) {
+  // console.log("req.body: " + JSON.stringify(req.body));
 
   var certificate = new Certificate({
     person: {
@@ -41,8 +41,7 @@ function insertRecord(req, res) {
       },
     },
   });
-
-  console.log("certificate: " + JSON.stringify(certificate));
+  // console.log("certificate: " + JSON.stringify(certificate));
 
   certificate.save((err, doc) => {
     if (!err) {
@@ -54,7 +53,7 @@ function insertRecord(req, res) {
 }
 
 function updatePerson(req, res) {
-  console.log("update record: " + JSON.stringify(req.body));
+  // console.log("update record: " + JSON.stringify(req.body));
 
   var updated_person = {
     first_name: req.body.first_name,
@@ -91,7 +90,10 @@ function updatePerson(req, res) {
 router.get("/list", (req, res) => {
   Certificate.find((err, docs) => {
     if (!err) {
-      console.log("docs: " + docs);
+      // console.log("docs: " + docs);
+      // var fs = require('fs');
+      // fs.writeFile('docs.json', JSON.stringify(docs), 'utf8', function (err) {});
+
 
       res.render("certificate/list", {
         list: docs,
@@ -102,7 +104,7 @@ router.get("/list", (req, res) => {
   });
 });
 
-// Update certificate
+// Edit certificate
 router.get("/:id", (req, res) => {
   Certificate.findById(req.params.id, (err, doc) => {
     if (!err) {
@@ -110,7 +112,7 @@ router.get("/:id", (req, res) => {
         viewTitle: "Update Certificate",
         certificate: doc,
       });
-      console.log(doc);
+      // console.log(doc);
     }
   });
 });
@@ -134,7 +136,8 @@ router.get("/:id/tests", (req, res) => {
   Certificate.findById(req.params.id, (err, docs) => {
     if (!err) {
       res.render("certificate/tests", {
-        tests: docs,
+        tests: docs.tests,
+        cert_id: req.params.id,
       });
     } else {
       console.log("Error in retrieval: " + err);
@@ -144,16 +147,138 @@ router.get("/:id/tests", (req, res) => {
 
 // Add test
 router.get("/:id/testsAddOrEdit", (req, res) => {
-  Certificate.findById(req.params.id, (err, doc) => {
+  res.render("certificate/testsAddOrEdit", {
+    viewTitle: "Add Test",
+    cert_id: req.params.id,
+  });
+});
+
+// Edit test
+router.get("/:cert_id/testsAddOrEdit/:test_id", (req, res) => {
+  Certificate.findOne({
+    _id: req.params.cert_id,
+    tests: { $elemMatch: { _id: req.params.test_id } }
+  }, (err, doc) => {
     if (!err) {
+      var test = doc.tests.find(t => t._id == req.params.test_id)
+
       res.render("certificate/testsAddOrEdit", {
-        viewTitle: "Add Test",
-        testsAddOrEdit: doc,
+        viewTitle: "Update Test",
+        cert_id: req.params.cert_id,
+        test: test,
       });
-    }else {
-        console.log("Error in deletion: " + err);
     }
   });
+});
+
+// POST: add or edit test
+router.post("/:cert_id/test", (req, res) => {
+  console.log("POST req.body: " + JSON.stringify(req.body));
+  if (req.body._id == "") {
+    insertTest(req, res);
+  } else {
+    updateTest(req, res);
+  }
+});
+
+function insertTest(req, res) {
+
+  var test = {
+    outcome: req.body.outcome === "true" ? true : false,
+    date: req.body.date,
+    covid_center: {
+      name: req.body.covid_center_name,
+      address: req.body.covid_center_address,
+      type: req.body.covid_center_type,
+      // TODO fix lat and lng
+      // location: {
+      //   type: {
+      //     type: "Point",
+      //     enum: ["Point"],
+      //   },
+      //   coordinates: {
+      //     type: [req.body.lat, req.body.lng],
+      //   },
+      // }
+    },
+    health_worker: {
+      first_name: req.body.worker_first_name,
+      last_name: req.body.worker_last_name,
+      email: req.body.worker_email,
+      phone_number: req.body.worker_phone_number,
+    }
+  }
+
+  // find certificate
+  console.log("cert_id: " + req.params.cert_id);
+
+  Certificate.findOneAndUpdate(
+    { _id: req.params.cert_id }, { $push: { tests: test } }, { new: true },
+    (err, doc) => {
+      if (!err) {
+        res.redirect("/certificate/" + req.params.cert_id + "/tests");
+      } else {
+        console.log("Error during insert: " + err);
+      }
+    }
+  );
+}
+
+function updateTest(req, res) {
+
+  var test = {
+    'tests.$.outcome': req.body.outcome === "true" ? true : false,
+    'tests.$.date': req.body.date,
+    'tests.$.covid_center': {
+      name: req.body.covid_center_name,
+      address: req.body.covid_center_address,
+      type: req.body.covid_center_type,
+      // TODO fix lat and lng
+      // location: {
+      //   type: {
+      //     type: "Point",
+      //     enum: ["Point"],
+      //   },
+      //   coordinates: {
+      //     type: [req.body.lat, req.body.lng],
+      //   },
+      // }
+    },
+    'tests.$.health_worker': {
+      first_name: req.body.worker_first_name,
+      last_name: req.body.worker_last_name,
+      email: req.body.worker_email,
+      phone_number: req.body.worker_phone_number,
+    }
+  }
+
+  Certificate.updateOne(
+    { 'tests._id': req.params.test_id }, { '$set': { test } },
+    (err, doc) => {
+      if (!err) {
+        res.redirect("/certificate/" + req.params.cert_id + "/tests");
+      } else {
+        console.log("Error during insert: " + err);
+      }
+    }
+  );
+}
+
+// Delete test
+router.get("/:cert_id/test/:test_id/delete", (req, res) => {
+  Certificate.updateOne({ _id: req.params.cert_id }, {
+    $pull: {
+      tests: { $elemMatch: { _id: req.params.test_id } },
+    },
+  },
+    (err, doc) => {
+      if (!err) {
+        res.redirect("/certificate/" + req.params.cert_id + "/tests");
+      } else {
+        console.log("Error during insert: " + err);
+      }
+    }
+  )
 });
 
 
@@ -180,38 +305,11 @@ router.get("/:id/vaccinesAddOrEdit", (req, res) => {
         viewTitle: "Add Vaccine",
         vaccinesAddOrEdit: doc,
       });
-    }else {
-        console.log("Error in deletion: " + err);
+    } else {
+      console.log("Error in deletion: " + err);
     }
   });
 });
 
-
-/*
-//DELETE TESTS: da aggiustare
-
-router.get("/:id/tests/delete", (req, res) => {
-  Certificate.updateOne( {cn: req.params.name}, { $pullAll: {uid: [req.params.deleteUid] } }, (err, doc) => {
-    if (!err) {
-      res.redirect("/certificate/tests");
-    } else {
-      console.log("Error in deletion: " + err);
-    }
-  });
-});*/
-
-/*
-//DELETE VACCINES: da aggiustare
-
-router.get("/:id/vaccines/delete", (req, res) => {
-  Certificate.updateOne( {cn: req.params.name}, { $pullAll: {uid: [req.params.deleteUid] } }, (err, doc) => {
-    if (!err) {
-      res.redirect("/certificate/vaccines");
-    } else {
-      console.log("Error in deletion: " + err);
-    }
-  });
-});*/
-///////////////////////////
 
 module.exports = router;

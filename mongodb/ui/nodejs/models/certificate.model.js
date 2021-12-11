@@ -12,7 +12,7 @@ const pointSchema = new mongoose.Schema({
 });
 
 const covidCenterSchema = new mongoose.Schema({
-  id: Number,
+  //id: Number,
   name: String,
   address: String,
   type: String,
@@ -28,8 +28,9 @@ const shortPersonSchema = new mongoose.Schema({
 
 var certificateSchema = new mongoose.Schema(
   {
+    //_id: { type: mongoose.Schema.ObjectId, auto: true },
     person: {
-      id: Number, // todo remove, but also from tests and vaccines
+      //_id: { type: mongoose.Schema.ObjectId, auto: true },
       first_name: String,
       last_name: String,
       email: String,
@@ -39,8 +40,8 @@ var certificateSchema = new mongoose.Schema(
       emergency_contact: shortPersonSchema,
     },
     tests: [
-       {
-        id: Number,
+      {
+        //_id: { type: mongoose.Schema.ObjectId, auto: true },
         outcome: Boolean,
         date: Date,
         covid_center: covidCenterSchema,
@@ -49,7 +50,7 @@ var certificateSchema = new mongoose.Schema(
     ],
     vaccines: [
       {
-        id: Number,
+        //_id: { type: mongoose.Schema.ObjectId, auto: true },
         type: String,
         date: Date,
         covid_center: covidCenterSchema,

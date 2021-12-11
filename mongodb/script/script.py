@@ -83,7 +83,7 @@ def main():
             tests.remove(test)
         
         # Add all vaccines to each person
-        random_vaccines = random.sample(vaccines, random.randint(0, min(4, len(vaccines))))
+        random_vaccines = random.sample(vaccines, random.randint(0, min(2, len(vaccines))))
         certificate['vaccines'] = random_vaccines
         for vaccine in random_vaccines:
             vaccines.remove(vaccine)

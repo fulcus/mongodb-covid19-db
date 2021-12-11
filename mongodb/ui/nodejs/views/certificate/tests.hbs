@@ -15,7 +15,7 @@
 
 <div class="header-row">
     <h3>Tests</h3>
-    <a class="btn btn-primary" href="/certificate/{{tests.id}}/testsAddOrEdit">Create New</a>
+    <a class="btn btn-primary" href="/certificate/{{cert_id}}/testsAddOrEdit">Create New</a>
 </div>
 <table class="table table-striped">
     <thread>
@@ -29,7 +29,7 @@
         </tr>
     </thread>
     <tbody>
-        {{#each tests.tests}}
+        {{#each tests}}
         <tr>
             <td>{{@index}}</td>
             <td>{{this.outcome}}</td>
@@ -43,8 +43,8 @@
             Email: {{this.health_worker.email}}</td>
             <td>
                 <div class="actions">
-                    <a class="btn btn-primary btn-sm mr-2" href="/testsAddOrEdit/{{this.id}}">Edit</a>
-                    <a class="btn btn-primary btn-sm" href="/certificate/tests/delete/{{this.id}}"
+                    <a class="btn btn-primary btn-sm mr-2" href="/certificate/{{@root.cert_id}}/testsAddOrEdit/{{this._id}}">Edit</a>
+                    <a class="btn btn-primary btn-sm" href="/certificate/{{@root.cert_id}}/test/{{this._id}}/delete"
                         onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                 </div>
             </td>
