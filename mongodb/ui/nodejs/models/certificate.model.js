@@ -57,7 +57,7 @@ var certificateSchema = new mongoose.Schema(
       },
     ],
   },
-  { collection: "newCertificate" }
+  { collection: "certificates" }
 );
 
 mongoose.model("Certificate", certificateSchema);
