@@ -10,6 +10,7 @@ const {
 const bodyparser = require("body-parser");
 
 const certificateController = require("./controllers/certificateController");
+//const testController = require("./controllers/testController");
 
 var app = express();
 
@@ -42,3 +43,4 @@ app.listen(3000, () => {
 });
 
 app.use("/certificate", certificateController);
+//app.use("/test", testController);

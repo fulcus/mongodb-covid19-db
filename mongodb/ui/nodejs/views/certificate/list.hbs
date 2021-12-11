@@ -35,12 +35,12 @@
                 Phone Number: {{this.person.phone_number}}<br>
                 CF: {{this.person.CF}}<br>
                 is a doctor: {{this.person.is_doctor}}</td>
-            <td><a class="actions btn btn-secondary btn-sm" href="/certificate/tests/{{this.id}}">Tests</a></td>
-            <td><a class="actions btn btn-secondary btn-sm" href="/certificate/vaccines/{{this.id}}">Vaccines</a></td>
+            <td><a class="actions btn btn-secondary btn-sm" href="/certificate/{{this.id}}/tests">Tests</a></td>
+            <td><a class="actions btn btn-secondary btn-sm" href="/certificate/{{this.id}}/vaccines">Vaccines</a></td>
             <td>
                 <div class="actions">
                     <a class="btn btn-primary btn-sm mr-2" href="/certificate/{{this.id}}">Edit</a>
-                    <a class="btn btn-primary btn-sm" href="/certificate/delete/{{this.id}}"
+                    <a class="btn btn-primary btn-sm" href="/certificate/{{this.id}}/delete"
                         onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                 </div>
             </td>
