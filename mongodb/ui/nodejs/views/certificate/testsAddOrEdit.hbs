@@ -19,7 +19,8 @@
 
 <h3>{{viewTitle}}</h3>
 
-<form action="/tests" method="POST" autocomplete="off">
+<form action="/testss" method="POST" autocomplete="off">
+
 
     <div class="container">
         <div class="row">
@@ -27,45 +28,57 @@
 
                 <div class="form-group">
                     <h5>Test</h5>
-                    <!--<input type="hidden" name="id" value="{{certificate.test.id}}" />-->
 
-                    <div id="body">Outcome</div>
-                        {{#if this.outcome.true}}
-                        <input checked type="checkbox" value="true" name="outcome">
+                    {{#with testsAddOrEdit.tests}}
+
+                        <input type="hidden" name="id" value="{{this.id}}" />
+
+                        <div id="body">Outcome</div>
+                        {{#if this.outcome}}
+                            <input checked type="checkbox" value="true" name="outcome">
                         {{else}}
-                        <input type="checkbox" value="true" name="outcome">
+                            <input type="checkbox" value="true" name="outcome">
                         {{/if}}
-                        <label>true</label>
-                    </div>
-                    <br />
-                    <div id="body">Date</div>
-                    <input type="date" class="input" name="date"
-                        value="{{this.date}}" />
-                    <br />
+                        <label>true</label>           
+
+                        <div id="body">Date</div>
+                        <input type="date" class="input" name="date"
+                            value="{{this.date}}" /><br />
+                    {{/with}}
+
+                    
+                </div>
             </div>
+
             <div class="col">
 
                 <div class="form-group">
                     <h5>Covid Center</h5>
                     <!-- NEED TO ADD ID-->
+                    
+                    {{#with testsAddOrEdit.tests}}
 
-                    <div id="body">Name</div>
-                    <input type="text" class="input" name="center_name" placeholder="Name"
-                        value="{{this.covid_center.name}}" />
-                    <br />
-                    <div id="body">Address</div>
-                    <input type="text" class="input" name="address" placeholder="Address"
-                        value="{{this.covid_center.address}}" />
-                    <br />
-                    <div id="body">Type</div>
-                    <select name="type" id="type" value="{{this.covid_center.type}}">
-                        <option value="Hospital">Hospital</option>
-                        <option value="Pharmacy">Pharmacy</option>
-                        <option value="Vaccination Hub">Vaccination Hub</option>
-                    </select>
-                    <br />
-                    <div id="body">Location</div>
-                    <!--TODO-->
+                        <div id="body">Name</div>
+                        <input type="text" class="input" name="center_name" placeholder="Name"
+                            value="{{this.covid_center.name}}" />
+                        <br />
+                        <div id="body">Address</div>
+                        <input type="text" class="input" name="address" placeholder="Address"
+                            value="{{this.covid_center.address}}" />
+                        <br />
+                        <div id="body">Type</div>
+                        <select name="type" id="type" value="{{this.covid_center.type}}">
+                            <option value="Hospital">Hospital</option>
+                            <option value="Pharmacy">Pharmacy</option>
+                            <option value="Vaccination Hub">Vaccination Hub</option>
+                        </select>
+                        <br />
+
+                        {{#each this.covid_center.location.coordinates}}
+                            <input type="hidden" name="location{{@index}}" value="{{@index}}" />
+                        {{/each}}
+                    {{/with}}
+
                 </div>
             </div>
 
@@ -75,22 +88,27 @@
                     <h5>Health Worker</h5>
                     <!-- NEED TO ADD ID-->
 
-                    <div id="body">First Name</div>
-                    <input type="text" class="input" name="worker name" placeholder="First Name"
+                    {{#with testsAddOrEdit.tests}}
+
+
+                        <div id="body">First Name</div>
+                        <input type="text" class="input" name="worker name" placeholder="First Name"
                         value="{{this.health_worker.first_name}}" />
-                    <br />
-                    <div id="body">Last Name</div>
-                    <input type="text" class="input" name="worker last name" placeholder="Last Name"
-                        value="{{this.health_worker.last_name}}" />
-                    <br />
-                    <div id="body">Phone Number</div>
-                    <input type="text" class="input" name="worker number" placeholder="Phone Number"
-                        value="{{this.health_worker.phone_number}}" />
-                    <br />
-                    <div id="body">Email</div>
-                    <input type="text" class="input" name="worker email" placeholder="Email"
-                        value="{{this.health_worker.email}}" />
-                    <br />
+                        <br />
+                        <div id="body">Last Name</div>
+                        <input type="text" class="input" name="worker last name" placeholder="Last Name"
+                            value="{{this.health_worker.last_name}}" />
+                        <br />
+                        <div id="body">Phone Number</div>
+                        <input type="text" class="input" name="worker number" placeholder="Phone Number"
+                            value="{{this.health_worker.phone_number}}" />
+                        <br />
+                        <div id="body">Email</div>
+                        <input type="text" class="input" name="worker email" placeholder="Email"
+                            value="{{this.health_worker.email}}" />
+                        <br />
+
+                    {{/with}}
                 </div>
             </div>
 
@@ -101,6 +119,6 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-info">Submit</button>
-        <a class="btn btn-secondary" href="/certificate/tests/{{this.id}}">View All</a>
+        <a class="btn btn-secondary" href="/certificate/tests/{{testsAddOrEdit.id}}">View All</a>
     </div>
 </form>

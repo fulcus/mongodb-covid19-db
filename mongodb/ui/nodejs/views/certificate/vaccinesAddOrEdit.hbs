@@ -41,6 +41,7 @@
                     <input type="date" class="input" name="date"
                         value="{{this.date}}" />
                     <br />
+                </div>
             </div>
             <div class="col">
 
@@ -63,8 +64,9 @@
                         <option value="Vaccination Hub">Vaccination Hub</option>
                     </select>
                     <br />
-                    <div id="body">Location</div>
-                    <!--TODO-->
+                    {{#each this.covid_center.location.coordinates}}
+                            <input type="hidden" name="location{{@index}}" value="{{@index}}" />
+                    {{/each}}
                 </div>
             </div>
 
@@ -100,6 +102,6 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-info">Submit</button>
-        <a class="btn btn-secondary" href="/certificate/vaccines/{{this.id}}">View All</a>
+        <a class="btn btn-secondary" href="/certificate/vaccines/{{vaccinesAddOrEdit.id}}">View All</a>
     </div>
 </form>
