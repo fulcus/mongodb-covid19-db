@@ -56,8 +56,9 @@
                     <input type="text" class="input" name="covid_center_address" placeholder="Address"
                         value="{{test.covid_center.address}}" required />
                     <br />
+
                     <div id="body">Type</div>
-                    <select name="test_covid_center_type" id="type">
+                    <select name="covid_center_type" id="type" value="{{test.covid_center.center_type}}">
                         <option value="" selected="selected">Choose one</option>
                         <option value="Hospital">Hospital</option>
                         <option value="Pharmacy">Pharmacy</option>
