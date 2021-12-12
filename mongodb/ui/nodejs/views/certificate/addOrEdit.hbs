@@ -28,22 +28,23 @@
 
                     <div id="body">First Name</div>
                     <input type="text" class="input" name="first_name" placeholder="First Name"
-                        value="{{certificate.person.first_name}}" />
+                        value="{{certificate.person.first_name}}" required />
                     <br />
                     <div id="body">Last Name</div>
                     <input type="text" class="input" name="last_name" placeholder="Last Name"
-                        value="{{certificate.person.last_name}}" />
+                        value="{{certificate.person.last_name}}" required />
                     <br />
                     <div id="body">Email</div>
-                    <input type="text" class="input" name="email" placeholder="Email"
+                    <input type="email" class="input" name="email" placeholder="Email"
                         value="{{certificate.person.email}}" />
                     <br />
                     <div id="body">Phone Number</div>
-                    <input type="text" class="input" name="phone_number" placeholder="Phone Number"
+                    <input type="tel" class="input" name="phone_number" placeholder="Phone Number"
                         value="{{certificate.person.phone_number}}" />
                     <br />
                     <div id="body">CF</div>
-                    <input type="text" class="input" name="CF" placeholder="CF" value="{{certificate.person.CF}}" />
+                    <input type="text" class="input" name="CF" placeholder="CF" value="{{certificate.person.CF}}"
+                        required />
                     <br />
                     <div id="doctor">
                         {{!-- for update: if person is doctor it appears already checked --}}

@@ -27,19 +27,17 @@
                     <h5>Test</h5>
 
                     <input type="hidden" name="_id" value="{{test._id}}" />
-                    {{!-- <input type="hidden" name="cert_id" value="{{cert_id}}" /> --}}
-
 
                     <div id="body">Outcome</div>
-                    {{#if test.outcome}}
-                    <input checked type="checkbox" value="true" name="outcome">
-                    {{else}}
-                    <input type="checkbox" value="true" name="outcome">
-                    {{/if}}
-                    <label>true</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="outcome" value="true"> Positive
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="outcome" value="false" checked> Negative
+                    </label>
 
                     <div id="body">Date</div>
-                    <input type="date" class="input" name="date" value="{{test.date}}" /><br />
+                    <input type="date" class="input" name="date" value="{{test.date}}" required /><br />
 
 
                 </div>
@@ -52,11 +50,11 @@
 
                     <div id="body">Name</div>
                     <input type="text" class="input" name="covid_center_name" placeholder="Name"
-                        value="{{test.covid_center.name}}" />
+                        value="{{test.covid_center.name}}" required />
                     <br />
                     <div id="body">Address</div>
                     <input type="text" class="input" name="covid_center_address" placeholder="Address"
-                        value="{{test.covid_center.address}}" />
+                        value="{{test.covid_center.address}}" required />
                     <br />
                     <div id="body">Type</div>
                     <select name="covid_center_type" id="type" value="{{test.covid_center.center_type}}">
@@ -66,9 +64,11 @@
                     </select>
                     <br />
                     <div id="coord">
-                        <div id="body">Coordinates</div> 
-                        <input type="text" name="lat" placeholder="0.0000000" value="{{test.covid_center.location.coordinates.[0]}}" />
-                        <input type="text" name="lng" placeholder="0.0000000" value="{{test.covid_center.location.coordinates.[1]}}" />
+                        <div id="body">Coordinates</div>
+                        <input type="text" name="lat" placeholder="0.0000000"
+                            value="{{test.covid_center.location.coordinates.[0]}}" />
+                        <input type="text" name="lng" placeholder="0.0000000"
+                            value="{{test.covid_center.location.coordinates.[1]}}" />
                     </div>
                 </div>
             </div>
@@ -80,11 +80,11 @@
 
                     <div id="body">First Name</div>
                     <input type="text" class="input" name="worker_first_name" placeholder="First Name"
-                        value="{{test.health_worker.first_name}}" />
+                        value="{{test.health_worker.first_name}}" required />
                     <br />
                     <div id="body">Last Name</div>
                     <input type="text" class="input" name="worker_last_name" placeholder="Last Name"
-                        value="{{test.health_worker.last_name}}" />
+                        value="{{test.health_worker.last_name}}" required />
                     <br />
                     <div id="body">Phone Number</div>
                     <input type="text" class="input" name="worker_phone_number" placeholder="Phone Number"

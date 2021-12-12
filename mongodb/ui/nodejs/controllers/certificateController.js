@@ -116,7 +116,7 @@ router.get("/:id", (req, res) => {
 router.get("/:id/delete", (req, res) => {
   Certificate.findByIdAndRemove(req.params.id, (err, doc) => {
     if (!err) {
-      res.redirect("certificate/list");
+      res.redirect("/certificate/list");
     } else {
       console.log("Error in deletion: " + err);
     }
@@ -298,7 +298,6 @@ router.get("/:id/vaccines", (req, res) => {
 
 // Add vaccine
 router.get("/:id/vaccinesAddOrEdit", (req, res) => {
-  console.log("req.params.id");
   res.render("certificate/vaccinesAddOrEdit", {
     viewTitle: "Add Vaccine",
     cert_id: req.params.id,
