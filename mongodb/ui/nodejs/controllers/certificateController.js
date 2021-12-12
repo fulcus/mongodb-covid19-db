@@ -145,6 +145,7 @@ router.get("/:id/tests", (req, res) => {
   });
 });
 
+
 // Add test
 router.get("/:id/testsAddOrEdit", (req, res) => {
   res.render("certificate/testsAddOrEdit", {
@@ -292,7 +293,8 @@ router.get("/:id/vaccines", (req, res) => {
   Certificate.findById(req.params.id, (err, docs) => {
     if (!err) {
       res.render("certificate/vaccines", {
-        vaccines: docs,
+        vaccines: docs.vaccines,
+        cert_id: req.params.id,
       });
     } else {
       console.log("Error in retrieval: " + err);
@@ -302,17 +304,145 @@ router.get("/:id/vaccines", (req, res) => {
 
 // Add vaccine
 router.get("/:id/vaccinesAddOrEdit", (req, res) => {
-  Certificate.findById(req.params.id, (err, doc) => {
+  console.log("req.params.id");
+  res.render("certificate/vaccinesAddOrEdit", {
+    viewTitle: "Add Vaccine",
+    cert_id: req.params.id,
+  });
+});
+
+// Edit vaccine
+router.get("/:cert_id/vaccinesAddOrEdit/:vaccine_id", (req, res) => {
+  Certificate.findOne({
+    _id: req.params.cert_id,
+    vaccines: { $elemMatch: { _id: req.params.vaccine_id } }
+  }, (err, doc) => {
     if (!err) {
+      try {
+      var vaccine = doc.vaccines.find(t => t._id == req.params.vaccine_id)
+      } catch (error) {
+        console.log("Error in finding test: " + error);
+      }
       res.render("certificate/vaccinesAddOrEdit", {
-        viewTitle: "Add Vaccine",
-        vaccinesAddOrEdit: doc,
+        viewTitle: "Update Vaccine",
+        cert_id: req.params.cert_id,
+        vaccine: vaccine,
       });
-    } else {
-      console.log("Error in deletion: " + err);
     }
   });
 });
+
+// POST: add or edit vaccine
+router.post("/:cert_id/vaccine", (req, res) => {
+  console.log("POST req.body: " + JSON.stringify(req.body));
+  if (req.body._id == "") {
+    insertVaccine(req, res);
+  } else {
+    updateVaccine(req, res);
+  }
+});
+
+function insertVaccine(req, res) {
+
+  var vaccine = {
+    brand: req.body.brand,
+    date: req.body.date,
+    covid_center: {
+      name: req.body.covid_center_name,
+      address: req.body.covid_center_address,
+      type: req.body.covid_center_type,
+      // TODO fix lat and lng
+      // location: {
+      //   type: {
+      //     type: "Point",
+      //     enum: ["Point"],
+      //   },
+      //   coordinates: {
+      //     type: [req.body.lat, req.body.lng],
+      //   },
+      // }
+    },
+    health_worker: {
+      first_name: req.body.worker_first_name,
+      last_name: req.body.worker_last_name,
+      email: req.body.worker_email,
+      phone_number: req.body.worker_phone_number,
+    }
+  }
+
+  // find certificate
+  console.log("cert_id: " + req.params.cert_id);
+
+  Certificate.findOneAndUpdate(
+    { _id: req.params.cert_id }, { $push: { vaccines: vaccine } }, { new: true },
+    (err, doc) => {
+      if (!err) {
+        res.redirect("/certificate/" + req.params.cert_id + "/vaccines");
+      } else {
+        console.log("Error during insert: " + err);
+      }
+    }
+  );
+}
+
+function updateVaccine(req, res) {
+
+  var vaccine = {
+    'vaccines.$.brand': req.body.brand,
+    'vaccines.$.date': req.body.date,
+    'vaccines.$.covid_center': {
+      name: req.body.covid_center_name,
+      address: req.body.covid_center_address,
+      type: req.body.covid_center_type,
+      // TODO fix lat and lng
+      // location: {
+      //   type: {
+      //     type: "Point",
+      //     enum: ["Point"],
+      //   },
+      //   coordinates: {
+      //     type: [req.body.lat, req.body.lng],
+      //   },
+      // }
+    },
+    'vaccines.$.health_worker': {
+      first_name: req.body.worker_first_name,
+      last_name: req.body.worker_last_name,
+      email: req.body.worker_email,
+      phone_number: req.body.worker_phone_number,
+    }
+  }
+
+  Certificate.updateOne(
+    { 'vaccines._id': req.params.test_id }, { '$set': { vaccine } },
+    (err, doc) => {
+      if (!err) {
+        res.redirect("/certificate/" + req.params.cert_id + "/vaccines");
+      } else {
+        console.log("Error during insert: " + err);
+      }
+    }
+  );
+}
+
+// Delete vaccine
+router.get("/:cert_id/vaccine/:vaccine_id/delete", (req, res) => {
+  Certificate.updateOne({ _id: req.params.cert_id }, {
+    $pull: {
+      vaccines: { $elemMatch: { _id: req.params.vaccine_id } },
+    },
+  },
+    (err, doc) => {
+      if (!err) {
+        res.redirect("/certificate/" + req.params.cert_id + "/vaccines");
+      } else {
+        console.log("Error during insert: " + err);
+      }
+    }
+  )
+});
+
+
 
 
 module.exports = router;
