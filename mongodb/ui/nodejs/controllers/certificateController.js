@@ -192,7 +192,7 @@ function insertTest(req, res) {
     covid_center: {
       name: req.body.covid_center_name,
       address: req.body.covid_center_address,
-      type: req.body.covid_center_type,
+      covid_center_type: req.body.covid_center_type,
       // TODO fix lat and lng
       // location: {
       //   type: {
@@ -235,7 +235,7 @@ function updateTest(req, res) {
     'tests.$.covid_center': {
       name: req.body.covid_center_name,
       address: req.body.covid_center_address,
-      type: req.body.covid_center_type,
+      covid_center_type: req.body.covid_center_type,
       // TODO fix lat and lng
       // location: {
       //   type: {
@@ -264,7 +264,7 @@ function updateTest(req, res) {
   //   { 'new': true, 'safe': true, 'upsert': true });
 
   Certificate.findOneAndUpdate(
-    { _id: req.params.cert_id, tests: { $elemMatch: { _id: req.params.test_id } } }, { $set: { test } }, {upsert: true},
+    { _id: req.params.cert_id, tests: { $elemMatch: { _id: req.params.test_id } } }, { $set: { test } }, //{upsert: true},
     (err, doc) => {
       if (!err) {
         console.log("Updated test: " + JSON.stringify(doc));
@@ -322,24 +322,6 @@ router.get("/:id/vaccines", (req, res) => {
     }
   });
 });
-
-// Show vaccines
-// router.get("/:id/vaccines", (req, res) => {
-//   Certificate.findById(req.params.id, (err, docs) => {
-//     console.log(req.params.id)
-//     if (!err) {
-//       console.log("docs: " + (docs));
-//       console.log("docs.vaccines: " + (docs.vaccines));
-//       // res.render("certificate/vaccines", {
-//       //   tests: docs.tests,
-//       //   cert_id: req.params.id,
-//       // });
-//     } else {
-//       console.log("Error in retrieval: " + err);
-//     }
-//   });
-// });
-
 
 // Add vaccine
 router.get("/:id/vaccinesAddOrEdit", (req, res) => {
