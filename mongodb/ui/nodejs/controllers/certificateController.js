@@ -161,7 +161,7 @@ router.get("/:cert_id/testsAddOrEdit/:test_id", (req, res) => {
   }, (err, doc) => {
     if (!err) {
       try {
-      var test = doc.tests.find(t => t._id == req.params.test_id)
+        var test = doc.tests.find(t => t._id == req.params.test_id)
       } catch (error) {
         console.log("Error in finding test: " + error);
       }
@@ -176,7 +176,7 @@ router.get("/:cert_id/testsAddOrEdit/:test_id", (req, res) => {
 
 // POST: add or edit test
 router.post("/:cert_id/test", (req, res) => {
-  console.log("POST req.body: " + JSON.stringify(req.body));
+  // console.log("POST req.body: " + JSON.stringify(req.body));
   if (req.body._id == "") {
     insertTest(req, res);
   } else {
@@ -254,17 +254,39 @@ function updateTest(req, res) {
       phone_number: req.body.worker_phone_number,
     }
   }
+  // UserModel.findOneAndUpdate({ _id: 1, notifications: { $elemMatch: { id: 2 } } },
+  //   {
+  //     $set: {
+  //       'notifications.$.title': req.body.title,
+  //       'notifications.$.body': req.body.body,
+  //     }
+  //   },
+  //   { 'new': true, 'safe': true, 'upsert': true });
 
-  Certificate.updateOne(
-    { 'tests._id': req.params.test_id }, { '$set': { test } },
+  Certificate.findOneAndUpdate(
+    { _id: req.params.cert_id, tests: { $elemMatch: { _id: req.params.test_id } } }, { $set: { test } }, {upsert: true},
     (err, doc) => {
       if (!err) {
+        console.log("Updated test: " + JSON.stringify(doc));
         res.redirect("/certificate/" + req.params.cert_id + "/tests");
       } else {
         console.log("Error during insert: " + err);
       }
     }
   );
+
+
+  // Certificate.updateOne(
+  //   { 'tests._id': req.params.test_id }, { $set: { test } },
+  //   (err, doc) => {
+  //     if (!err) {
+  //       console.log("Updated test: " + JSON.stringify(doc));
+  //       res.redirect("/certificate/" + req.params.cert_id + "/tests");
+  //     } else {
+  //       console.log("Error during insert: " + err);
+  //     }
+  //   }
+  // );
 }
 
 // Delete test
@@ -292,13 +314,32 @@ router.get("/:id/vaccines", (req, res) => {
   Certificate.findById(req.params.id, (err, docs) => {
     if (!err) {
       res.render("certificate/vaccines", {
-        vaccines: docs,
+        vaccines: docs.vaccines,
+        cert_id: req.params.id
       });
     } else {
       console.log("Error in retrieval: " + err);
     }
   });
 });
+
+// Show vaccines
+// router.get("/:id/vaccines", (req, res) => {
+//   Certificate.findById(req.params.id, (err, docs) => {
+//     console.log(req.params.id)
+//     if (!err) {
+//       console.log("docs: " + (docs));
+//       console.log("docs.vaccines: " + (docs.vaccines));
+//       // res.render("certificate/vaccines", {
+//       //   tests: docs.tests,
+//       //   cert_id: req.params.id,
+//       // });
+//     } else {
+//       console.log("Error in retrieval: " + err);
+//     }
+//   });
+// });
+
 
 // Add vaccine
 router.get("/:id/vaccinesAddOrEdit", (req, res) => {
