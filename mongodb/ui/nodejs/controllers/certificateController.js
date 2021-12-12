@@ -90,11 +90,6 @@ function updatePerson(req, res) {
 router.get("/list", (req, res) => {
   Certificate.find((err, docs) => {
     if (!err) {
-      // console.log("docs: " + docs);
-      // var fs = require('fs');
-      // fs.writeFile('docs.json', JSON.stringify(docs), 'utf8', function (err) {});
-
-
       res.render("certificate/list", {
         list: docs,
       });

@@ -3,6 +3,8 @@
     <h3>Tests</h3>
     <a class="btn btn-primary" href="/certificate/{{cert_id}}/testsAddOrEdit">Create New</a>
 </div>
+{{#if tests}}
+
 <table class="table table-striped">
     <thread>
         <tr>
@@ -38,4 +40,6 @@
         {{/each}}
     </tbody>
 </table>
-
+{{else}}
+<p>No tests found, <a href="/certificate/{{cert_id}}/testsAddOrEdit">create a new one!</a></p>
+{{/if}}

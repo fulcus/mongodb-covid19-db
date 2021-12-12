@@ -2,6 +2,7 @@
     <h3>Vaccines</h3>
     <a class="btn btn-primary" href="/certificate/{{cert_id}}/vaccinesAddOrEdit">Create New</a>
 </div>
+{{#if vaccines}}
 <table class="table table-striped">
     <thread>
         <tr>
@@ -37,4 +38,7 @@
         {{/each}}
     </tbody>
 </table>
+{{else}}
+<p class="empty">No vaccines found, <a href="/certificate/{{cert_id}}/vaccinesAddOrEdit">create a new one!</a></p>
+{{/if}}
 

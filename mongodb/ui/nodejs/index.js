@@ -18,9 +18,7 @@ app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
 app.get("/", (req, res) => {
-  res.send(
-    '<h2>Welcome to the COVID19 Database!</h2><h3>Click here to get access to the <b><a href="/certificate/list">Database</a></b></h3>'
-  );
+  res.redirect("certificate/list");
 });
 
 app.set("views", path.join(__dirname, "views"));
@@ -43,4 +41,3 @@ app.listen(3000, () => {
 });
 
 app.use("/certificate", certificateController);
-//app.use("/test", testController);
