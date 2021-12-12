@@ -160,8 +160,11 @@ router.get("/:cert_id/testsAddOrEdit/:test_id", (req, res) => {
     tests: { $elemMatch: { _id: req.params.test_id } }
   }, (err, doc) => {
     if (!err) {
+      try {
       var test = doc.tests.find(t => t._id == req.params.test_id)
-
+      } catch (error) {
+        console.log("Error in finding test: " + error);
+      }
       res.render("certificate/testsAddOrEdit", {
         viewTitle: "Update Test",
         cert_id: req.params.cert_id,

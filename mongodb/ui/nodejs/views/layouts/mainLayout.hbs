@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>Certificates</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <style> 
-            #box {
+
+<head>
+    <title>Certificates</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        #box {
             background-color: #ffff;
             margin-top: 25px;
             padding: 20px;
@@ -16,15 +18,34 @@
             -moz-border-radius: 10px 10px 10px 10px;
             -webkit-border-radius: 10px 10px 10px 10px;
             border: 0px solid #000000;
-            }
-        </style>
-    </head>
+        }
 
-    <body class="bg-info">
-        <div id='box' class="col-md-6 offset-md-3">
-            {{{body}}}
-        </div>
-    </body>
+        .btn {
+            width: fit-content;
+        }
 
+        a {
+            margin-left: 0px !important;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-info">
+    <div id='box' class="col-xl-8 offset-2">
+        {{{body}}}
+    </div>
+</body>
 
 </html>
