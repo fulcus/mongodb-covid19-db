@@ -9,9 +9,9 @@ The data are fake and generated with [mockaroo](https://www.mockaroo.com/) and p
 
 To run the project follow these simple example steps.
 
-1. Install [mongodb](https://www.mongodb.com/try/download)
-1. Import [dump](https://github.com/fulcus/mongodb-covid19-db/blob/master/mongodb/mongodb-SMBUD.dump)
-1. Visit the [demo page](https://fulcus.github.io/mongodb-covid19-db/mongodb/ui/index.html) or launch `mongodb/ui/index.html`
+1. Install [nodejs](https://nodejs.org/en/download/)
+1. run `npm install` (inside directory `mongodb/ui/nodejs`)
+1. run `node index.js`
 
 ### Features
 
@@ -20,7 +20,7 @@ To run the project follow these simple example steps.
 * Created queries and commands to use on our database
 * Implemented UI to visualize data
 
-The full documentation is available [here](https://github.com/fulcus/mongodb-covid19-db/blob/master/neo4j/docs/Report.pdf).
+The full documentation is available [here](https://github.com/fulcus/mongodb-covid19-db/blob/master/mongodb/docs/Report.pdf).
 
 ### ER diagram
 
@@ -34,15 +34,12 @@ The commands on the sidebar offer an intuitive to add, remove or modify nodes, w
 
 <img src="mongodb/images/dashboard.png" width="750"/>
 
-#### Query 3
-
-We implemented 5 useful queries available in the sidebar. Below the visualization of Query 3.
-
-<img src="mongodb/images/q3.png" width="550"/>
-
 ### Built with
 
 * [mongodb](https://www.mongodb.com)
+* [nodejs](https://nodejs.org/)
+* [express](https://expressjs.com/)
+* [handlebars](https://handlebarsjs.com/)
 * [mockaroo](https://www.mockaroo.com/)
 
 ## Authors
