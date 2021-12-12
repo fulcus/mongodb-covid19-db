@@ -1,6 +1,5 @@
 [
   {
-    "id": 1,
     "name": "Gusikowski and Sons",
     "address": "43175 Eastlawn Park",
     "lat": 50.52546,
@@ -8,7 +7,6 @@
     "center_type": "Vaccination Hub"
   },
   {
-    "id": 2,
     "name": "Rolfson, Mayert and Gottlieb",
     "address": "798 Manley Place",
     "lat": 54.4658152,
@@ -16,7 +14,6 @@
     "center_type": "Vaccination Hub"
   },
   {
-    "id": 3,
     "name": "Bode Group",
     "address": "687 Vera Way",
     "lat": 38.0120968,
@@ -24,7 +21,6 @@
     "center_type": "Pharmacy"
   },
   {
-    "id": 4,
     "name": "Gorczany, Beahan and VonRueden",
     "address": "9747 Kipling Place",
     "lat": -8.4114856,
@@ -32,7 +28,6 @@
     "center_type": "Pharmacy"
   },
   {
-    "id": 5,
     "name": "Kerluke-Wehner",
     "address": "2 Grayhawk Parkway",
     "lat": 34.9255083,
@@ -40,7 +35,6 @@
     "center_type": "Pharmacy"
   },
   {
-    "id": 6,
     "name": "Prosacco, Goyette and Hickle",
     "address": "19 Beilfuss Center",
     "lat": -23.4500163,
@@ -48,7 +42,6 @@
     "center_type": "Hospital"
   },
   {
-    "id": 7,
     "name": "D'Amore-Veum",
     "address": "463 Shasta Lane",
     "lat": 35.2897617,
@@ -56,7 +49,6 @@
     "center_type": "Vaccination Hub"
   },
   {
-    "id": 8,
     "name": "Block Group",
     "address": "93354 Starling Parkway",
     "lat": 51.1134675,
@@ -64,7 +56,6 @@
     "center_type": "Vaccination Hub"
   },
   {
-    "id": 9,
     "name": "Klocko, Heidenreich and Crooks",
     "address": "0720 Maryland Center",
     "lat": 49.7762204,
@@ -72,7 +63,6 @@
     "center_type": "Pharmacy"
   },
   {
-    "id": 10,
     "name": "Conn, Gottlieb and Emmerich",
     "address": "08 Florence Crossing",
     "lat": 12.1235658,
