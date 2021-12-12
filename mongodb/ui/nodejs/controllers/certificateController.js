@@ -159,11 +159,11 @@ router.get("/:cert_id/testsAddOrEdit/:test_id", (req, res) => {
     if (!err) {
       try {
         var test = doc.tests.find(t => t._id == req.params.test_id)
+
       } catch (error) {
         console.log("Error in finding test: " + error);
       }
       const formattedDate = moment(test.date).format("YYYY-MM-DDTHH:mm");
-
 
       res.render("certificate/testsAddOrEdit", {
         viewTitle: "Update Test",
@@ -174,8 +174,6 @@ router.get("/:cert_id/testsAddOrEdit/:test_id", (req, res) => {
     }
   });
 });
-
-
 
 // POST: add or edit test
 router.post("/:cert_id/test", (req, res) => {
