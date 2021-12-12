@@ -58,10 +58,12 @@
                     <br />
                     <div id="body">Type</div>
                     <select name="test_covid_center_type" id="type">
+                        {{#select test.covid_center.center_type}}
                         <option value="" selected="selected">Choose one</option>
                         <option value="Hospital">Hospital</option>
                         <option value="Pharmacy">Pharmacy</option>
                         <option value="Vaccination Hub">Vaccination Hub</option>
+                        {{/select}}
                     </select>
                     <br />
                     <div id="coord">

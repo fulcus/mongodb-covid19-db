@@ -29,11 +29,13 @@
                     
                     <div id="body">Brand</div>
                     <select name="brand" value="{{vaccine.brand}}">
+                        {{#select vaccine.brand}}
                         <option value="" selected="selected">Choose one</option>
                         <option value="Johnson&Johnson">Johnson&Johnson</option>
                         <option value="Pfizer">Pfizer</option>
                         <option value="Moderna">Moderna</option>
                         <option value="Astra Zeneca">Astra Zeneca</option>
+                        {{/select}}
                     </select>
                     <br />
                     <div id="body">Date</div>
@@ -57,10 +59,13 @@
                     <br />
                     <div id="body">Type</div>
                     <select name="covid_center_type" id="type" value="{{vaccine.covid_center.center_type}}">
+                        {{#select vaccine.covid_center.center_type}}
+
                         <option value="" selected="selected">Choose one</option>
                         <option value="Hospital">Hospital</option>
                         <option value="Pharmacy">Pharmacy</option>
                         <option value="Vaccination Hub">Vaccination Hub</option>
+                        {{/select}}
                     </select>
                     <br />
                     <div id="coord">

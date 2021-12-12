@@ -3,6 +3,7 @@ require("./models/db");
 const express = require("express");
 const path = require("path");
 const handlebars = require('handlebars');
+
 const { engine } = require("express-handlebars");
 const {
   allowInsecurePrototypeAccess,
@@ -12,7 +13,6 @@ const bodyparser = require("body-parser");
 const certificateController = require("./controllers/certificateController");
 
 var app = express();
-
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
@@ -22,18 +22,21 @@ app.get("/", (req, res) => {
 
 app.set("views", path.join(__dirname, "views"));
 
-app.engine(
-  "hbs",
-  engine({
-    handlebars: allowInsecurePrototypeAccess(handlebars),
-    extname: "hbs",
-    defaultLayout: "mainLayout",
-    layoutsDir: __dirname + "/views/layouts/",
-  })
-);
-
+var expressHbs = require("express-handlebars");
+var hbs = expressHbs.create({
+  handlebars: allowInsecurePrototypeAccess(handlebars),
+  extname: "hbs",
+  defaultLayout: "mainLayout",
+  layoutsDir: __dirname + "/views/layouts/",
+  helpers: {
+    select: function (selected, options) {
+      return options.fn(this).replace(
+        new RegExp(' value=\"' + selected + '\"'),
+        '$& selected="selected"');
+    }
+}});
+app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "views"));
 
 app.listen(3000, () => {
   console.log("server started at port 3000");

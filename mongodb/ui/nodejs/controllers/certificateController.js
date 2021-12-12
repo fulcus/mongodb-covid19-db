@@ -318,7 +318,6 @@ router.get("/:cert_id/vaccinesAddOrEdit/:vaccine_id", (req, res) => {
         console.log("Error in finding test: " + error);
       }
       const formattedDate = moment(vaccine.date).format("YYYY-MM-DDTHH:mm");
-      console.log(formattedDate);
 
       res.render("certificate/vaccinesAddOrEdit", {
         viewTitle: "Update Vaccine",
