@@ -164,7 +164,6 @@ router.get("/:cert_id/testsAddOrEdit/:test_id", (req, res) => {
         console.log("Error in finding test: " + error);
       }
       const formattedDate = moment(test.date).format("YYYY-MM-DDTHH:mm");
-      console.log(formattedDate);
 
       res.render("certificate/testsAddOrEdit", {
         viewTitle: "Update Test",
@@ -196,17 +195,11 @@ function insertTest(req, res) {
       name: req.body.covid_center_name,
       address: req.body.covid_center_address,
       center_type: req.body.covid_center_type,
-      // TODO fix lat and lng
-      /*location: {
-         type: {
-           type: "Point",
-           enum: ["Point"],
-         },
-         coordinates: {
-           type: [req.body.lat, req.body.lng],
-         },
-       }*/
-    },
+      location: {
+        type: "Point",
+        coordinates: [parseFloat(req.body.lat), parseFloat(req.body.lng)]
+      }
+  },
     health_worker: {
       first_name: req.body.worker_first_name,
       last_name: req.body.worker_last_name,
@@ -242,11 +235,10 @@ function updateTest(req, res) {
         name: req.body.covid_center_name,
         address: req.body.covid_center_address,
         center_type: req.body.covid_center_type,
-        // TODO fix lat and lng
-        //   coordinates: {
-        //     type: [req.body.lat, req.body.lng],
-        //   },
-        // }
+        location: {
+          type: "Point",
+          coordinates: [parseFloat(req.body.lat), parseFloat(req.body.lng)]
+        }
       },
       'tests.$.health_worker': {
         first_name: req.body.worker_first_name,
@@ -356,16 +348,10 @@ function insertVaccine(req, res) {
       name: req.body.covid_center_name,
       address: req.body.covid_center_address,
       center_type: req.body.covid_center_type,
-      // TODO fix lat and lng
-      // location: {
-      //   type: {
-      //     type: "Point",
-      //     enum: ["Point"],
-      //   },
-      //   coordinates: {
-      //     type: [req.body.lat, req.body.lng],
-      //   },
-      // }
+      location: {
+        type: "Point",
+        coordinates: [parseFloat(req.body.lat), parseFloat(req.body.lng)]
+      }
     },
     health_worker: {
       first_name: req.body.worker_first_name,
@@ -394,7 +380,7 @@ function updateVaccine(req, res) {
   console.log("req.params.cert_id: " + req.params.cert_id);
   console.log("req.body._id: " + req.body._id);
 
-  console.log("req.body: " + JSON.stringify(req.body,null,2));
+  console.log("req.body: " + JSON.stringify(req.body, null, 2));
 
   Certificate.findOneAndUpdate(
     { _id: req.params.cert_id, vaccines: { $elemMatch: { _id: req.body._id } } }, {
@@ -406,12 +392,10 @@ function updateVaccine(req, res) {
         name: req.body.covid_center_name,
         address: req.body.covid_center_address,
         center_type: req.body.covid_center_type,
-        // TODO fix lat and lng
-        // location: {
-        //   coordinates: {
-        //     type: [parseFloat(req.body.lat), parseFloat(req.body.lng)],
-        //   },
-        // }
+        location: {
+          type: "Point",
+          coordinates: [parseFloat(req.body.lat), parseFloat(req.body.lng)]
+        }
       },
       'vaccines.$.health_worker': {
         first_name: req.body.worker_first_name,

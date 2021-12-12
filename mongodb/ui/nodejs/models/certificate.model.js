@@ -1,22 +1,20 @@
 const mongoose = require("mongoose");
 
-// refer to https://mongoosejs.com/docs/geojson.html
-const pointSchema = new mongoose.Schema({
-  type: {
-    type: String,
-    enum: ["Point"],
-  },
-  coordinates: {
-    type: [Number],
-  },
-});
 
 const covidCenterSchema = new mongoose.Schema({
   //id: Number,
   name: String,
   address: String,
   center_type: String,
-  location: pointSchema,
+  location: { // refer to https://mongoosejs.com/docs/geojson.html
+    type: {
+      type: String,
+      enum: ["Point"],
+    },
+    coordinates: {
+      type: [Number],
+    }  
+  }
 });
 
 const shortPersonSchema = new mongoose.Schema({
