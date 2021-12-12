@@ -39,7 +39,7 @@
                     <label>true</label>
 
                     <div id="body">Date</div>
-                    <input type="date" class="input" name="date" value="{{test.date}}" /><br />
+                    <input type="datetime-local" class="input" name="date" value="{{date}}" /><br />
 
 
                 </div>
@@ -67,8 +67,8 @@
                     <br />
                     <div id="coord">
                         <div id="body">Coordinates</div> 
-                        <input type="text" name="lat" placeholder="0.0000000" value="{{test.covid_center.location.coordinates.[0]}}" />
-                        <input type="text" name="lng" placeholder="0.0000000" value="{{test.covid_center.location.coordinates.[1]}}" />
+                        <input type="text" class="input" name="lat" placeholder="0.0000000" value="{{test.covid_center.location.coordinates.[0]}}" />
+                        <input type="text" class="input" name="lng" placeholder="0.0000000" value="{{test.covid_center.location.coordinates.[1]}}" />
                     </div>
                 </div>
             </div>
