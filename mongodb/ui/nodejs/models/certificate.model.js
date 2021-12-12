@@ -15,7 +15,7 @@ const covidCenterSchema = new mongoose.Schema({
   //id: Number,
   name: String,
   address: String,
-  type: String,
+  center_type: String,
   location: pointSchema,
 });
 
@@ -51,7 +51,7 @@ var certificateSchema = new mongoose.Schema(
     vaccines: [
       {
         //_id: { type: mongoose.Schema.ObjectId, auto: true },
-        type: String,
+        brand: String,
         date: Date,
         covid_center: covidCenterSchema,
         health_worker: shortPersonSchema,
