@@ -2,6 +2,7 @@ const express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
 const Certificate = mongoose.model("Certificate");
+const moment = require("moment");
 
 // CERTIFICATES
 
@@ -158,13 +159,18 @@ router.get("/:cert_id/testsAddOrEdit/:test_id", (req, res) => {
     if (!err) {
       try {
         var test = doc.tests.find(t => t._id == req.params.test_id)
+
       } catch (error) {
         console.log("Error in finding test: " + error);
       }
+      const formattedDate = moment(test.date).format("YYYY-MM-DDTHH:mm");
+      console.log(formattedDate);
+
       res.render("certificate/testsAddOrEdit", {
         viewTitle: "Update Test",
         cert_id: req.params.cert_id,
         test: test,
+        date: formattedDate
       });
     }
   });
@@ -181,24 +187,25 @@ router.post("/:cert_id/test", (req, res) => {
 });
 
 function insertTest(req, res) {
+  const formattedDate = moment(req.body.date).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
 
   var test = {
     outcome: req.body.outcome === "true" ? true : false,
-    date: req.body.date,
+    date: formattedDate,
     covid_center: {
       name: req.body.covid_center_name,
       address: req.body.covid_center_address,
       center_type: req.body.covid_center_type,
       // TODO fix lat and lng
-      // location: {
-      //   type: {
-      //     type: "Point",
-      //     enum: ["Point"],
-      //   },
-      //   coordinates: {
-      //     type: [req.body.lat, req.body.lng],
-      //   },
-      // }
+      /*location: {
+         type: {
+           type: "Point",
+           enum: ["Point"],
+         },
+         coordinates: {
+           type: [req.body.lat, req.body.lng],
+         },
+       }*/
     },
     health_worker: {
       first_name: req.body.worker_first_name,
@@ -316,10 +323,14 @@ router.get("/:cert_id/vaccinesAddOrEdit/:vaccine_id", (req, res) => {
       } catch (error) {
         console.log("Error in finding test: " + error);
       }
+      const formattedDate = moment(vaccine.date).format("YYYY-MM-DDTHH:mm");
+      console.log(formattedDate);
+
       res.render("certificate/vaccinesAddOrEdit", {
         viewTitle: "Update Vaccine",
         cert_id: req.params.cert_id,
         vaccine: vaccine,
+        date: formattedDate
       });
     }
   });
@@ -336,10 +347,11 @@ router.post("/:cert_id/vaccine", (req, res) => {
 });
 
 function insertVaccine(req, res) {
+  const formattedDate = moment(req.body.date).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
 
   var vaccine = {
     brand: req.body.brand,
-    date: req.body.date,
+    date: formattedDate,
     covid_center: {
       name: req.body.covid_center_name,
       address: req.body.covid_center_address,
