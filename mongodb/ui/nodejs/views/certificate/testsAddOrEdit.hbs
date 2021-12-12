@@ -49,8 +49,6 @@
 
                 <div class="form-group">
                     <h5>Covid Center</h5>
-                    <!-- NEED TO ADD ID-->
-
 
                     <div id="body">Name</div>
                     <input type="text" class="input" name="covid_center_name" placeholder="Name"
@@ -61,7 +59,7 @@
                         value="{{test.covid_center.address}}" />
                     <br />
                     <div id="body">Type</div>
-                    <select name="covid_center_type" id="type" value="{{test.covid_center.type}}">
+                    <select name="covid_center_type" id="type" value="{{test.covid_center.center_type}}">
                         <option value="Hospital">Hospital</option>
                         <option value="Pharmacy">Pharmacy</option>
                         <option value="Vaccination Hub">Vaccination Hub</option>
@@ -79,7 +77,6 @@
 
                 <div class="form-group">
                     <h5>Health Worker</h5>
-                    <!-- NEED TO ADD ID-->
 
                     <div id="body">First Name</div>
                     <input type="text" class="input" name="worker_first_name" placeholder="First Name"

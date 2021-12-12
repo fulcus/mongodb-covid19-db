@@ -26,10 +26,9 @@
                 <div class="form-group">
                     <h5>Vaccine</h5>
                     <input type="hidden" name="_id" value="{{vaccine._id}}" />
-                    <!--<input type="hidden" name="id" value="{{certificate.test.id}}" />-->
-
+                    
                     <div id="body">Brand</div>
-                    <select name="type" id="type" value="{{vaccine.brand}}">
+                    <select name="brand" value="{{vaccine.brand}}">
                     <option value="Johnson&Johnson">Johnson&Johnson</option>
                     <option value="Pfizer">Pfizer</option>
                     <option value="Moderna">Moderna</option>
@@ -37,35 +36,31 @@
                     </select>
                     <br />
                     <div id="body">Date</div>
-                    <input type="date" class="input" name="date"
-                        value="{{vaccine.date}}" />
-                    <br />
+                    <input type="date" class="input" name="date" value="{{vaccine.date}}" /><br />
+
                 </div>
             </div>
+
             <div class="col">
 
                 <div class="form-group">
                     <h5>Covid Center</h5>
-                    <!-- NEED TO ADD ID-->
 
                     <div id="body">Name</div>
-                    <input type="text" class="input" name="center_name" placeholder="Name"
+                    <input type="text" class="input" name="covid_center_name" placeholder="Name"
                         value="{{vaccine.covid_center.name}}" />
                     <br />
                     <div id="body">Address</div>
-                    <input type="text" class="input" name="address" placeholder="Address"
+                    <input type="text" class="input" name="covid_center_address" placeholder="Address"
                         value="{{vaccine.covid_center.address}}" />
                     <br />
                     <div id="body">Type</div>
-                    <select name="type" id="type" value="{{vaccine.covid_center.center_type}}">
+                    <select name="covid_center_type" id="type" value="{{vaccine.covid_center.center_type}}">
                         <option value="Hospital">Hospital</option>
                         <option value="Pharmacy">Pharmacy</option>
                         <option value="Vaccination Hub">Vaccination Hub</option>
                     </select>
                     <br />
-                    {{#each vaccine.covid_center.location.coordinates}}
-                            <input type="hidden" name="location{{@index}}" value="{{@index}}" />
-                    {{/each}}
                     <div id="coord">
                         <div id="body">Coordinates</div> 
                         <input type="text" name="lat" placeholder="0.0000000" value="{{vaccine.covid_center.location.coordinates.[0]}}" />
@@ -78,25 +73,24 @@
 
                 <div class="form-group">
                     <h5>Health Worker</h5>
-                    <!-- NEED TO ADD ID-->
 
                     <div id="body">First Name</div>
-                    <input type="text" class="input" name="worker name" placeholder="First Name"
+                    <input type="text" class="input" name="worker_first_name" placeholder="First Name"
                         value="{{vaccine.health_worker.first_name}}" />
                     <br />
                     <div id="body">Last Name</div>
-                    <input type="text" class="input" name="worker last name" placeholder="Last Name"
+                    <input type="text" class="input" name="worker_last_name" placeholder="Last Name"
                         value="{{vaccine.health_worker.last_name}}" />
                     <br />
                     <div id="body">Phone Number</div>
-                    <input type="text" class="input" name="worker number" placeholder="Phone Number"
+                    <input type="text" class="input" name="worker_phone_number" placeholder="Phone Number"
                         value="{{vaccine.health_worker.phone_number}}" />
                     <br />
                     <div id="body">Email</div>
-                    <input type="text" class="input" name="worker email" placeholder="Email"
+                    <input type="text" class="input" name="worker_email" placeholder="Email"
                         value="{{vaccine.health_worker.email}}" />
                     <br />
-                
+
                 </div>
             </div>
 

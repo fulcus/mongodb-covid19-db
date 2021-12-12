@@ -193,7 +193,7 @@ function insertTest(req, res) {
     covid_center: {
       name: req.body.covid_center_name,
       address: req.body.covid_center_address,
-      covid_center_type: req.body.covid_center_type,
+      center_type: req.body.covid_center_type,
       // TODO fix lat and lng
       // location: {
       //   type: {
@@ -230,32 +230,6 @@ function insertTest(req, res) {
 
 function updateTest(req, res) {
 
-  var test = {
-    'tests.$.outcome': req.body.outcome === "true" ? true : false,
-    'tests.$.date': req.body.date,
-    'tests.$.covid_center': {
-      name: req.body.covid_center_name,
-      address: req.body.covid_center_address,
-      covid_center_type: req.body.covid_center_type,
-      // TODO fix lat and lng
-      // location: {
-      //   type: {
-      //     type: "Point",
-      //     enum: ["Point"],
-      //   },
-      //   coordinates: {
-      //     type: [req.body.lat, req.body.lng],
-      //   },
-      // }
-    },
-    'tests.$.health_worker': {
-      first_name: req.body.worker_first_name,
-      last_name: req.body.worker_last_name,
-      email: req.body.worker_email,
-      phone_number: req.body.worker_phone_number,
-    }
-  }
-
   Certificate.findOneAndUpdate(
     { _id: req.params.cert_id, tests: { $elemMatch: { _id: req.body._id } } }, {
     $set:
@@ -265,13 +239,8 @@ function updateTest(req, res) {
       'tests.$.covid_center': {
         name: req.body.covid_center_name,
         address: req.body.covid_center_address,
-        covid_center_type: req.body.covid_center_type,
+        center_type: req.body.covid_center_type,
         // TODO fix lat and lng
-        // location: {
-        //   type: {
-        //     type: "Point",
-        //     enum: ["Point"],
-        //   },
         //   coordinates: {
         //     type: [req.body.lat, req.body.lng],
         //   },
@@ -299,9 +268,6 @@ function updateTest(req, res) {
 // Delete test
 router.get("/:cert_id/test/:test_id/delete", (req, res) => {
 
-  console.log("cert_id: " + req.params.cert_id);
-  console.log("test_id: " + req.params.test_id);
-
   Certificate.findOneAndUpdate(
     { _id: req.params.cert_id }, {
     $pull: {
@@ -310,8 +276,6 @@ router.get("/:cert_id/test/:test_id/delete", (req, res) => {
   },
     (err, doc) => {
       if (!err) {
-        console.log("Deleted test: " + (doc));
-        //console.log("Updated test: " + (doc.tests[0]));
         res.redirect("/certificate/" + req.params.cert_id + "/tests");
       } else {
         console.log("Error during insert: " + err);
@@ -354,7 +318,7 @@ router.get("/:cert_id/vaccinesAddOrEdit/:vaccine_id", (req, res) => {
   }, (err, doc) => {
     if (!err) {
       try {
-      var vaccine = doc.vaccines.find(t => t._id == req.params.vaccine_id)
+        var vaccine = doc.vaccines.find(t => t._id == req.params.vaccine_id)
       } catch (error) {
         console.log("Error in finding test: " + error);
       }
@@ -385,7 +349,7 @@ function insertVaccine(req, res) {
     covid_center: {
       name: req.body.covid_center_name,
       address: req.body.covid_center_address,
-      type: req.body.covid_center_type,
+      center_type: req.body.covid_center_type,
       // TODO fix lat and lng
       // location: {
       //   type: {
@@ -406,7 +370,7 @@ function insertVaccine(req, res) {
   }
 
   // find certificate
-  console.log("cert_id: " + req.params.cert_id);
+  console.log("insert : " + JSON.stringify(vaccine, null, 2));
 
   Certificate.findOneAndUpdate(
     { _id: req.params.cert_id }, { $push: { vaccines: vaccine } }, { new: true },
@@ -421,51 +385,52 @@ function insertVaccine(req, res) {
 }
 
 function updateVaccine(req, res) {
+  console.log("req.params.cert_id: " + req.params.cert_id);
+  console.log("req.body._id: " + req.body._id);
 
-  var vaccine = {
-    'vaccines.$.brand': req.body.brand,
-    'vaccines.$.date': req.body.date,
-    'vaccines.$.covid_center': {
-      name: req.body.covid_center_name,
-      address: req.body.covid_center_address,
-      type: req.body.covid_center_type,
-      // TODO fix lat and lng
-      // location: {
-      //   type: {
-      //     type: "Point",
-      //     enum: ["Point"],
-      //   },
-      //   coordinates: {
-      //     type: [req.body.lat, req.body.lng],
-      //   },
-      // }
-    },
-    'vaccines.$.health_worker': {
-      first_name: req.body.worker_first_name,
-      last_name: req.body.worker_last_name,
-      email: req.body.worker_email,
-      phone_number: req.body.worker_phone_number,
-    }
-  }
+  console.log("req.body: " + JSON.stringify(req.body,null,2));
 
-  Certificate.updateOne(
-    { 'vaccines._id': req.params.test_id }, { '$set': { vaccine } },
-    (err, doc) => {
-      if (!err) {
-        res.redirect("/certificate/" + req.params.cert_id + "/vaccines");
-      } else {
-        console.log("Error during insert: " + err);
+  Certificate.findOneAndUpdate(
+    { _id: req.params.cert_id, vaccines: { $elemMatch: { _id: req.body._id } } }, {
+    $set:
+    {
+      'vaccines.$.brand': req.body.brand,
+      'vaccines.$.date': req.body.date,
+      'vaccines.$.covid_center': {
+        name: req.body.covid_center_name,
+        address: req.body.covid_center_address,
+        center_type: req.body.covid_center_type,
+        // TODO fix lat and lng
+        // location: {
+        //   coordinates: {
+        //     type: [parseFloat(req.body.lat), parseFloat(req.body.lng)],
+        //   },
+        // }
+      },
+      'vaccines.$.health_worker': {
+        first_name: req.body.worker_first_name,
+        last_name: req.body.worker_last_name,
+        email: req.body.worker_email,
+        phone_number: req.body.worker_phone_number,
       }
     }
-  );
+  }, (err, doc) => {
+    if (!err) {
+      res.redirect("/certificate/" + req.params.cert_id + "/vaccines");
+    } else {
+      console.log("Error during insert: " + err);
+    }
+  });
 }
 
 // Delete vaccine
 router.get("/:cert_id/vaccine/:vaccine_id/delete", (req, res) => {
-  Certificate.updateOne({ _id: req.params.cert_id }, {
+
+  Certificate.findOneAndUpdate(
+    { _id: req.params.cert_id }, {
     $pull: {
-      vaccines: { $elemMatch: { _id: req.params.vaccine_id } },
-    },
+      vaccines: { _id: req.params.vaccine_id }
+    }
   },
     (err, doc) => {
       if (!err) {
@@ -474,10 +439,8 @@ router.get("/:cert_id/vaccine/:vaccine_id/delete", (req, res) => {
         console.log("Error during insert: " + err);
       }
     }
-  )
+  );
 });
-
-
 
 
 module.exports = router;
