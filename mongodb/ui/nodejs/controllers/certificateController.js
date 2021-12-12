@@ -254,56 +254,69 @@ function updateTest(req, res) {
       phone_number: req.body.worker_phone_number,
     }
   }
-  // UserModel.findOneAndUpdate({ _id: 1, notifications: { $elemMatch: { id: 2 } } },
-  //   {
-  //     $set: {
-  //       'notifications.$.title': req.body.title,
-  //       'notifications.$.body': req.body.body,
-  //     }
-  //   },
-  //   { 'new': true, 'safe': true, 'upsert': true });
 
   Certificate.findOneAndUpdate(
-    { _id: req.params.cert_id, tests: { $elemMatch: { _id: req.params.test_id } } }, { $set: { test } }, //{upsert: true},
+    { _id: req.params.cert_id, tests: { $elemMatch: { _id: req.body._id } } }, {
+    $set:
+    {
+      'tests.$.outcome': req.body.outcome === "true" ? true : false,
+      'tests.$.date': req.body.date,
+      'tests.$.covid_center': {
+        name: req.body.covid_center_name,
+        address: req.body.covid_center_address,
+        covid_center_type: req.body.covid_center_type,
+        // TODO fix lat and lng
+        // location: {
+        //   type: {
+        //     type: "Point",
+        //     enum: ["Point"],
+        //   },
+        //   coordinates: {
+        //     type: [req.body.lat, req.body.lng],
+        //   },
+        // }
+      },
+      'tests.$.health_worker': {
+        first_name: req.body.worker_first_name,
+        last_name: req.body.worker_last_name,
+        email: req.body.worker_email,
+        phone_number: req.body.worker_phone_number,
+      }
+    }
+  }, { new: true },
     (err, doc) => {
       if (!err) {
-        console.log("Updated test: " + JSON.stringify(doc));
+        console.log("Updated test: " + (doc.tests[0]));
         res.redirect("/certificate/" + req.params.cert_id + "/tests");
       } else {
         console.log("Error during insert: " + err);
       }
     }
   );
-
-
-  // Certificate.updateOne(
-  //   { 'tests._id': req.params.test_id }, { $set: { test } },
-  //   (err, doc) => {
-  //     if (!err) {
-  //       console.log("Updated test: " + JSON.stringify(doc));
-  //       res.redirect("/certificate/" + req.params.cert_id + "/tests");
-  //     } else {
-  //       console.log("Error during insert: " + err);
-  //     }
-  //   }
-  // );
 }
 
 // Delete test
 router.get("/:cert_id/test/:test_id/delete", (req, res) => {
-  Certificate.updateOne({ _id: req.params.cert_id }, {
+
+  console.log("cert_id: " + req.params.cert_id);
+  console.log("test_id: " + req.params.test_id);
+
+  Certificate.findOneAndUpdate(
+    { _id: req.params.cert_id }, {
     $pull: {
-      tests: { $elemMatch: { _id: req.params.test_id } },
-    },
+      tests: { _id: req.params.test_id }
+    }
   },
     (err, doc) => {
       if (!err) {
+        console.log("Deleted test: " + (doc));
+        //console.log("Updated test: " + (doc.tests[0]));
         res.redirect("/certificate/" + req.params.cert_id + "/tests");
       } else {
         console.log("Error during insert: " + err);
       }
     }
-  )
+  );
 });
 
 
