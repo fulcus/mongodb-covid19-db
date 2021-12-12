@@ -26,9 +26,10 @@
                 <div class="form-group">
                     <h5>Vaccine</h5>
                     <input type="hidden" name="_id" value="{{vaccine._id}}" />
-
+                    
                     <div id="body">Brand</div>
                     <select name="brand" value="{{vaccine.brand}}">
+                        <option value="" selected="selected">Choose one</option>
                         <option value="Johnson&Johnson">Johnson&Johnson</option>
                         <option value="Pfizer">Pfizer</option>
                         <option value="Moderna">Moderna</option>
@@ -48,25 +49,24 @@
 
                     <div id="body">Name</div>
                     <input type="text" class="input" name="covid_center_name" placeholder="Name"
-                        value="{{vaccine.covid_center.name}}" required />
+                        value="{{vaccine.covid_center.name}}" />
                     <br />
                     <div id="body">Address</div>
                     <input type="text" class="input" name="covid_center_address" placeholder="Address"
-                        value="{{vaccine.covid_center.address}}" required />
+                        value="{{vaccine.covid_center.address}}" />
                     <br />
                     <div id="body">Type</div>
                     <select name="covid_center_type" id="type" value="{{vaccine.covid_center.center_type}}">
+                        <option value="" selected="selected">Choose one</option>
                         <option value="Hospital">Hospital</option>
                         <option value="Pharmacy">Pharmacy</option>
                         <option value="Vaccination Hub">Vaccination Hub</option>
                     </select>
                     <br />
                     <div id="coord">
-                        <div id="body">Coordinates</div>
-                        <input type="text" name="lat" placeholder="0.0000000"
-                            value="{{vaccine.covid_center.location.coordinates.[0]}}" />
-                        <input type="text" name="lng" placeholder="0.0000000"
-                            value="{{vaccine.covid_center.location.coordinates.[1]}}" />
+                        <div id="body">Coordinates</div> 
+                        <input type="text" name="lat" placeholder="0.0000000" value="{{vaccine.covid_center.location.coordinates.[0]}}" />
+                        <input type="text" name="lng" placeholder="0.0000000" value="{{vaccine.covid_center.location.coordinates.[1]}}" />
                     </div>
                 </div>
             </div>
@@ -78,11 +78,11 @@
 
                     <div id="body">First Name</div>
                     <input type="text" class="input" name="worker_first_name" placeholder="First Name"
-                        value="{{vaccine.health_worker.first_name}}" required />
+                        value="{{vaccine.health_worker.first_name}}" />
                     <br />
                     <div id="body">Last Name</div>
                     <input type="text" class="input" name="worker_last_name" placeholder="Last Name"
-                        value="{{vaccine.health_worker.last_name}}" required />
+                        value="{{vaccine.health_worker.last_name}}" />
                     <br />
                     <div id="body">Phone Number</div>
                     <input type="text" class="input" name="worker_phone_number" placeholder="Phone Number"
