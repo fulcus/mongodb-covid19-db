@@ -10,7 +10,6 @@ const {
 const bodyparser = require("body-parser");
 
 const certificateController = require("./controllers/certificateController");
-//const testController = require("./controllers/testController");
 
 var app = express();
 
