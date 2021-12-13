@@ -3,7 +3,7 @@
 ### Purpose
 The first project's goal is to trace contacts between people, to monitor the viral diffusion.
 It entails the design and implementation of a document-based NoSQL database to support a contact tracing application for COVID-19. 
-The data are fake and generated with [mockaroo](https://www.mockaroo.com/) and python scripts. The generated is in `mongodb/data/certificates.json`.
+The data is fake and generated with [mockaroo](https://www.mockaroo.com/) and python scripts. The generated data is in `mongodb/data/certificates.json`.
 
 ### Installation
 
